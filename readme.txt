@@ -8,7 +8,7 @@ Stable tag: 1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Weptile Image Slider Widget is a responsive, extremely easy, lightweight image slider widget plugin. 16 options, 16 animations and 4 built in slider templates.
+Weptile Image Slider Widget is a responsive, easy & lightweight image slider widget plugin. 16 options, 16 animations & 4 slider templates.
 
 == Description ==
 
