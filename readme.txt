@@ -49,8 +49,8 @@ Yes. As many as you like.
 Yes. It won't conflict with existing nivo scripts.
 
 == Screenshots ==
-http://weptile.com/plugin-download/weptile-image-slider-widget/weptile-image-slider-widget-ss1.jpg
-http://weptile.com/plugin-download/weptile-image-slider-widget/weptile-image-slider-widget-ss2.jpg
+<a href="http://weptile.com/plugin-download/weptile-image-slider-widget/weptile-image-slider-widget-ss1.jpg" target="_blank">Screenshot 1</a><br/>
+<a href="http://weptile.com/plugin-download/weptile-image-slider-widget/weptile-image-slider-widget-ss2.jpg" target="_blank">Screenshot 1</a>
 
 
 == Changelog ==
