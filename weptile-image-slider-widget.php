@@ -3,7 +3,7 @@
 Plugin Name: Weptile Image Slider Widget
 Plugin URI: http://weptile.com
 Description: Easy, lightweight, responsive sidebar image slider widget. Utilizes the Nivo slider script. Includes lots and lots of customization options and all done within the widget. Allows multiple widgets on one screen and can be used in any sidebar. (Please visit <a href="http://weptile.com" target="_blank" title="wordpress development">Weptile.com</a> for more. You can also <a href="http://weptile.com" target="_blank" title="wordpress development">HIRE WEPTILE</a> for all your Wordpress projects and/or for WP support.)
-Version: 1.0.1
+Version: 1.0.2
 Author: Weptile (Algün & Ufuk)
 Author URI: http://weptile.com
 License: GPL v3
@@ -41,11 +41,7 @@ class Weptile_Image_Slider_Widget extends WP_Widget {
 
 	public function form($instance) {
 		// outputs the options form on admin
-		/*//debug
-		echo '<pre>';
-		print_r($instance);
-		echo'</pre>';
-		*/
+
 		if ($instance) {
 			$slider_options = array(
 				'title' => esc_attr($instance['title']),
@@ -219,9 +215,7 @@ class Weptile_Image_Slider_Widget extends WP_Widget {
 				}
 			echo'</ol>';
 		}
-		//hidden input values where our magic happens ^.^
 
-		echo '<input type="hidden" id="' . $this->get_field_id('slider-images-will-be-deleted') . '" name="' . $this->get_field_name('slider-images-will-be-deleted') . '" value="" />';
 
 		echo
 		'<p>' . __('You can upload new images or pick one of your images from your gallery and drag them to reorder.', $this->textdomain) . '</p>
@@ -412,9 +406,19 @@ class Weptile_Image_Slider_Widget extends WP_Widget {
 			$suffix = 'resized-' . $instance['slider-width'] . 'x' . $instance['slider-height'];
 			$suffix_thumb ='resized-30x30-thumbnail';
 
-			image_resize($image_path, $instance['slider-width'], $instance['slider-height'], true, $suffix, $dest_path, 100);
+			$image_size = getimagesize($image_path);
+			if( $image_size[0] <= $instance['slider-width'] && $image_size[1] <= $instance['slider-height']){ // source image dimensions' are equal to target copy the image to cache
+				$extension = substr($image_path,strrpos($image_path,'.'));
+				$new_image_file_name = substr($image_path,strrpos($image_path,'/') + 1);
+				$new_image_file_name_with_suffix = str_ireplace($extension, '-'.$suffix.$extension ,$new_image_file_name);
+				copy($image_path , $dest_path . $new_image_file_name_with_suffix);
+			}else{
+				image_resize($image_path, $instance['slider-width'], $instance['slider-height'], true, $suffix, $dest_path, 100);
+			}
+
 			image_resize($image_path, 30, 30, true, $suffix_thumb, $dest_path, 100); //thumbnails for wp admin side
 		}
+
 
 		return $instance;
 	}

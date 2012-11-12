@@ -4,11 +4,11 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: image, slider, widget, slideshow, nivo, sidebar, rotator, responsive
 Requires at least: 3.3
 Tested up to: 3.4
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Easily create responsive & lightweight image slider  (rotator) widgets in your sidebars.
+Easily create responsive & lightweight image slider (rotator) widgets in your sidebars.
 
 == Description ==
 
@@ -54,12 +54,18 @@ Yes. It won't conflict with existing nivo scripts.
 
 == Changelog ==
 
-v1.0.1 Descriptions and readme.txt fixed.
-v1.0 Weptile Image Slider Widget launched.
+= 1.0.2 =
+
+* Critical bug-fix where images won't resize and be created in some situations.
+
+= 1.0.1 =
+
+* Descriptions and readme.txt fixed.
+
+= 1.0 =
+
+* Weptile Image Slider Widget launched.
 
 == Upgrade notice ==
 
-
-
-== Arbitrary section 1 ==
 
