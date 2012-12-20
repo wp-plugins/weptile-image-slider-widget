@@ -49,10 +49,11 @@ Yes. As many as you like.
 Yes. It won't conflict with existing nivo scripts.
 
 == Screenshots ==
-= Screenshot 1 =
-<a href="http://weptile.com/plugin-download/weptile-image-slider-widget/weptile-image-slider-widget-ss1.jpg" target="_blank"><img src="http://weptile.com/plugin-download/weptile-image-slider-widget/weptile-image-slider-widget-ss1.jpg" alt="Weptile Image Slider Widget Screenshot 1" /></a>
-= Screenshot 2 =
-<a href="http://weptile.com/plugin-download/weptile-image-slider-widget/weptile-image-slider-widget-ss2.jpg" target="_blank"><img src="http://weptile.com/plugin-download/weptile-image-slider-widget/weptile-image-slider-widget-ss2.jpg" alt="Weptile Image Slider Widget Screenshot 2" /></a>
+
+1. Weptile Image Slider Widget Settings Panel
+
+2. Weptile Image Slider Widget Settings Panel - Slider Effects
+
 
 
 == Changelog ==
