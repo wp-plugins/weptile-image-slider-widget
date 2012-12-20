@@ -29,7 +29,9 @@ jQuery(function () {
 		iframe.load(function(){
 			var iframeDoc = iframe[0].contentWindow.document;
 			var iframeJQuery = iframe[0].contentWindow.jQuery;
-			iframeJQuery('#tab-type_url').remove();
+			if (iframeJQuery != undefined)
+				iframeJQuery('#tab-type_url').remove();
+
 			iframe.css('display','');
 			apply_insert_button_filter(iframeJQuery);
 		});
@@ -39,6 +41,9 @@ jQuery(function () {
 
 	window.send_to_editor = function (html) {
 		var imgurl = jQuery('img', html).attr('src');
+		if (imgurl == undefined)
+			imgurl = jQuery(html).attr('src');
+
 		jQuery('#'+img_url_text_container_id).val(imgurl).prop('disabled',false);
 		clearTimeout(timeout);
 		tb_remove();
@@ -64,9 +69,9 @@ jQuery(function () {
 			that.parent().find('.weptile-image-slider-images-details-table').fadeOut(300);
 			that.parent().animate({height:30, maxHeight:30  },360);
 		}else{
-			that.parent().animate({height:105, maxHeight:105},360, function () { that.parent().find('.weptile-image-slider-images-details-table').fadeIn(300); });
+			that.parent().animate({height:140, maxHeight:140},360, function () { that.parent().find('.weptile-image-slider-images-details-table').fadeIn(300); });
 		}
 	});
-	//jQuery('.weptile-image-slider-image-link-input, .weptile-image-slider-image-caption-input').live('click', function () { jQuery(this).focus(); });
+
 });
 

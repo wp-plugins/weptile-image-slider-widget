@@ -3,8 +3,8 @@ Contributors: weptile, jrds
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=WQ5TC9J9UWALN
 Tags: image, slider, widget, slideshow, nivo, sidebar, rotator, responsive
 Requires at least: 3.3
-Tested up to: 3.4
-Stable tag: 1.0.2
+Tested up to: 3.5
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -49,10 +49,18 @@ Yes. As many as you like.
 Yes. It won't conflict with existing nivo scripts.
 
 == Screenshots ==
-<a href="http://weptile.com/plugin-download/weptile-image-slider-widget/weptile-image-slider-widget-ss1.jpg" target="_blank">Screenshot 1</a> | <a href="http://weptile.com/plugin-download/weptile-image-slider-widget/weptile-image-slider-widget-ss2.jpg" target="_blank">Screenshot 1</a>
+= Screenshot 1 =
+<a href="http://weptile.com/plugin-download/weptile-image-slider-widget/weptile-image-slider-widget-ss1.jpg" target="_blank"><img src="http://weptile.com/plugin-download/weptile-image-slider-widget/weptile-image-slider-widget-ss1.jpg" alt="Weptile Image Slider Widget Screenshot 1" /></a>
+= Screenshot 2 =
+<a href="http://weptile.com/plugin-download/weptile-image-slider-widget/weptile-image-slider-widget-ss2.jpg" target="_blank"><img src="http://weptile.com/plugin-download/weptile-image-slider-widget/weptile-image-slider-widget-ss2.jpg" alt="Weptile Image Slider Widget Screenshot 2" /></a>
 
 
 == Changelog ==
+
+= 1.0.3 =
+
+* Bug fix: Admin panel glitch that causes images won't be created in Wordpress 3.5 and above
+* Feature: Alternative text (Alt) attribute for slider images.
 
 = 1.0.2 =
 

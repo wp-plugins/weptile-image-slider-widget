@@ -2,7 +2,7 @@
 	border:1px solid #ccc;
 	height:30px;
 	max-height:30px;
-	margin-bottom:10px;
+	margin-bottom:12px;
 	position:relative;
 	/*overflow:hidden;*/
 	cursor:move;
@@ -24,6 +24,7 @@
 .weptile-image-slider-images-order li:hover .weptile-image-slider-images-delete-button, .weptile-image-slider-images-order li.weptile-image-slider-images-will-be-deleted .weptile-image-slider-images-delete-button,
 .weptile-image-slider-images-order li:hover .weptile-image-slider-images-details-button, .weptile-image-slider-images-order li.weptile-image-slider-images-will-be-deleted .weptile-image-slider-images-details-button{
 	display:block;
+	z-index:100;
 }
 
 .weptile-image-slider-images-details-table{

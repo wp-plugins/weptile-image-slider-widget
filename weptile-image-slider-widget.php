@@ -3,7 +3,7 @@
 Plugin Name: Weptile Image Slider Widget
 Plugin URI: http://weptile.com
 Description: Easy, lightweight, responsive sidebar image slider widget. Utilizes the Nivo slider script. Includes lots and lots of customization options and all done within the widget. Allows multiple widgets on one screen and can be used in any sidebar. (Please visit <a href="http://weptile.com" target="_blank" title="wordpress development">Weptile.com</a> for more. You can also <a href="http://weptile.com" target="_blank" title="wordpress development">HIRE WEPTILE</a> for all your Wordpress projects and/or for WP support.)
-Version: 1.0.2
+Version: 1.0.3
 Author: Weptile (Algün & Ufuk)
 Author URI: http://weptile.com
 License: GPL v3
@@ -207,6 +207,12 @@ class Weptile_Image_Slider_Widget extends WP_Widget {
 										((esc_attr($instance['slider-image-captions'][$i]) != '') ? ' value="' . esc_attr($instance['slider-image-captions'][$i]) . '" ' : '') . ' />
 								</td>
 							</tr>
+							<tr>
+								<td>
+									<input  id="' . $this->get_field_id('slider-image-alt-'.$i) . '" class="weptile-image-slider-image-alt-input widefat" type="text" placeholder="' . __('Alt :', $this->textdomain) . '" name="' . $this->get_field_name('slider-image-alts') . '[]" ' .
+										((esc_attr($instance['slider-image-alts'][$i]) != '') ? ' value="' . esc_attr($instance['slider-image-alts'][$i]) . '" ' : '') . ' />
+								</td>
+							</tr>
 						</table>
 						<input type="hidden" name="' . $this->get_field_name('slider-images') . '[]" value="' . esc_attr($image) . '" />
 						<button class="weptile-image-slider-images-details-button button" type="button">' . __('Details', $this->textdomain) . '</button>'.
@@ -268,12 +274,6 @@ class Weptile_Image_Slider_Widget extends WP_Widget {
 			echo $before_title . $title . $after_title;
 		}
 
-		/*//debug
-		echo '<pre>';
-		print_r($instance);
-		echo'</pre>';
-		*/
-
 		$is_there_a_problem = false;
 
 		if (count($instance['slider-images']) === 0) {
@@ -326,12 +326,10 @@ class Weptile_Image_Slider_Widget extends WP_Widget {
 				$image_file_name = substr($image_path, strripos($image_path, '/') + 1);
 				$suffix = 'resized-' . $slider_options['width'] . 'x' . $slider_options['height'];
 
-				//$dest_path = weptile_get_wp_config_path() . '/wp-content/plugins/' . basename(dirname(__FILE__)) . '/cache/';
-				//$check_file_path = $dest_path . str_ireplace(substr($image_file_name, -4), '-' . $suffix . substr($image_file_name, -4), $image_file_name);
 
 				$image_url = get_site_url() . '/wp-content/plugins/' . basename(dirname(__FILE__)) . '/cache/' . str_ireplace(substr($image_file_name, -4), '-' . $suffix . substr($image_file_name, -4), $image_file_name);
 				echo ( !empty($instance['slider-image-links'][$i]) ? '<a href="'.$instance['slider-image-links'][$i].'" >' : '' );
-				echo '<img src="' . $image_url . '" alt="" title="'. ( !empty($instance['slider-image-captions'][$i]) ? $instance['slider-image-captions'][$i] : '' ) .'" />';
+				echo '<img src="' . $image_url . '" alt="'. (!empty($instance['slider-image-alts'][$i]) ? $instance['slider-image-alts'][$i] : '') .'" title="'. ( !empty($instance['slider-image-captions'][$i]) ? $instance['slider-image-captions'][$i] : '' ) .'" />';
 				echo ( !empty($instance['slider-image-links'][$i]) ? '</a>' : '' );
 			}
 			echo
@@ -369,15 +367,7 @@ class Weptile_Image_Slider_Widget extends WP_Widget {
 	public function update($new_instance, $old_instance) {
 		// processes widget options to be saved
 
-		/*//debug
-		echo '<pre>';
-		print_r($new_instance);
-		echo'</pre>';
-
 		$instance = $old_instance;
-		*/
-
-
 
 		foreach ($old_instance['slider-images']  as $i => $image) { //clear old images and thumbs
 			$image_path = str_ireplace(get_site_url(), '', $image);
@@ -418,7 +408,6 @@ class Weptile_Image_Slider_Widget extends WP_Widget {
 
 			image_resize($image_path, 30, 30, true, $suffix_thumb, $dest_path, 100); //thumbnails for wp admin side
 		}
-
 
 		return $instance;
 	}
