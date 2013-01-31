@@ -3,7 +3,7 @@
 Plugin Name: Weptile Image Slider Widget
 Plugin URI: http://weptile.com
 Description: Easy, lightweight, responsive sidebar image slider widget. Utilizes the Nivo slider script. Includes lots and lots of customization options and all done within the widget. Allows multiple widgets on one screen and can be used in any sidebar. (Please visit <a href="http://weptile.com" target="_blank" title="wordpress development">Weptile.com</a> for more. You can also <a href="http://weptile.com" target="_blank" title="wordpress development">HIRE WEPTILE</a> for all your Wordpress projects and/or for WP support.)
-Version: 1.0.3
+Version: 1.0.4
 Author: Weptile (Algün & Ufuk)
 Author URI: http://weptile.com
 License: GPL v3
@@ -27,6 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class Weptile_Image_Slider_Widget extends WP_Widget {
 	private $textdomain = 'weptile_image_slider_textdomain';
+	private $default_themes = array('default','light','dark','bar');
 
 	public function __construct() {
 		// widget actual processes
@@ -87,14 +88,27 @@ class Weptile_Image_Slider_Widget extends WP_Widget {
 			<tr style=""><td colspan="2">'.__('This feature makes the slider fits its container in both conditions; if the container smaller/bigger than images or the container resizes. Otherwise slider will render in the dimensions you set above.').'</td></tr>
 			<tr>
 				<td><label for="' . $this->get_field_id('slider-theme') . '">' . __('Slider Theme', $this->textdomain) . '</label> :</td>
-				<td>
-					<select id="' . $this->get_field_id('slider-theme') . '" name="' . $this->get_field_name('slider-theme') . '">
-						<option value="default" ' . (($slider_options['theme'] == 'default') ? ' selected="selected" ' : '') . ' >' . __('Default', $this->textdomain) . '</option>
-						<option value="light" ' . (($slider_options['theme'] == 'light') ? ' selected="selected" ' : '') . '>' . __('Light', $this->textdomain) . '</option>
-						<option value="dark" ' . (($slider_options['theme'] == 'dark') ? ' selected="selected" ' : '') . '>' . __('Dark', $this->textdomain) . '</option>
-						<option value="bar" ' . (($slider_options['theme'] == 'bar') ? ' selected="selected" ' : '') . '>' . __('Bar', $this->textdomain) . '</option>
-					</select>
+				<td>';
+					$theme_options = array(
+						'default' => __('Default Theme',$this->textdomain),
+						'light' => __('Light Theme',$this->textdomain),
+						'dark' => __('Dark Theme',$this->textdomain),
+						'bar' => __('Bar Theme',$this->textdomain),
+						'weptile_custom_theme' => __('Custom Theme...', $this->textdomain)
+					);
+					if (array_key_exists($slider_options['theme'], $theme_options) || empty($slider_options['theme'])){
+						echo '<select  id="' . $this->get_field_id('slider-theme') . '" class="weptile-image-slider-theme-select widefat" name="' .$this->get_field_name('slider-theme') . '" >';
 
+						foreach($theme_options as $key => $value){
+							echo'<option value="'.$key.'" '.( esc_attr($slider_options['theme']) == $key ? ' selected="selected" ' : '' ).'>'.$value.'</option>';
+						}
+						echo '</select>';
+					}else{
+						echo '<input  id="' . $this->get_field_id('slider-theme') . '" class="weptile-image-slider-custom-theme-input widefat" type="text"  name="' . $this->get_field_name('slider-theme') . '" ' .
+							((($slider_options['theme']) != '') ? ' value="' . $slider_options['theme'].'"' : '') . ' /><button type="button" title="'.__('Cancel custom theme name input', $this->textdomain).'" class="button weptile-image-slider-custom-theme-cancel-button" >X</button>';
+					}
+				echo
+					'
 				</td>
 			</tr>
 			<tr>
@@ -196,19 +210,80 @@ class Weptile_Image_Slider_Widget extends WP_Widget {
 						<img src="' . esc_attr($image_url) . '" /><button class="weptile-image-slider-images-delete-button button" type="button">' . __('Remove Image', $this->textdomain) . '</button>
 						<table style="width:100%;" border="0" cellpadding="4" class="weptile-image-slider-images-details-table">
 							<tr>
-								<td>
+								<td colspan="2">
 									<input  id="' . $this->get_field_id('slider-image-link-'.$i) . '" class="weptile-image-slider-image-link-input widefat" type="text" placeholder="' . __('Link : http://', $this->textdomain) . '" name="' . $this->get_field_name('slider-image-links') . '[]" ' .
 										((esc_attr($instance['slider-image-links'][$i]) != '') ? ' value="' . esc_attr($instance['slider-image-links'][$i]) . '" ' : '') . ' />
 								</td>
 							</tr>
 							<tr>
 								<td>
+									Link\'s Target
+								</td>
+								<td>';
+									$target_options = array(
+										'_blank' => __('In a new window / tab', $this->textdomain),
+										'_self' => __('In the same page', $this->textdomain),
+										'_parent' => __('In the container of the frame', $this->textdomain),
+										'_top' => __('In the same window of the frame\'s container', $this->textdomain),
+										'weptile_custom_frame_name' => __('Custom frame name...', $this->textdomain)
+									);
+									if (array_key_exists($instance['slider-image-link-targets'][$i], $target_options) || esc_attr($instance['slider-image-link-targets'][$i]) == ''){
+										echo '<select  id="' . $this->get_field_id('slider-image-link-targets'.$i) . '" class="weptile-image-slider-image-link-target-select widefat" name="' . $this->get_field_name('slider-image-link-targets') . '[]" >';
+
+										foreach($target_options as $key => $value){
+											echo'<option value="'.$key.'" '.( esc_attr($instance['slider-image-link-targets'][$i]) == $key ? ' selected="selected" ' : '' ).'>'.$value.'</option>';
+										}
+										echo '</select>';
+									}else{
+										echo '<input  id="' . $this->get_field_id('slider-image-link-targets'.$i) . '" class="weptile-image-slider-image-link-target-input widefat" type="text" name="' . $this->get_field_name('slider-image-link-targets') . '[]" ' .
+											((esc_attr($instance['slider-image-link-targets'][$i]) != '') ? ' value="' . esc_attr($instance['slider-image-link-targets'][$i]) . '" ' : '') . ' /><button type="button" title="'.__('Cancel custom frame name input', $this->textdomain).'" class="button weptile-image-slider-image-link-target-cancel-button" >X</button>';
+									}
+							echo'
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Link\'s Rel
+								</td>
+								<td>';
+									$rel_options = array(
+										'' => '',
+										'alternate' => 'alternate',
+										'author' => 'author',
+										'bookmark' => 'bookmark',
+										'help' => 'help',
+										'license' => 'license',
+										'next' => 'next',
+										'nofollow' => 'nofollow',
+										'noreferrer' => 'noreferrer',
+										'prefetch' => 'prefetch',
+										'prev' => 'prev',
+										'search' => 'search',
+										'tag' => 'tag',
+										'weptile_custom_rel' => __('Custom rel value...', $this->textdomain)
+									);
+									if (array_key_exists($instance['slider-image-link-rels'][$i], $rel_options) || esc_attr($instance['slider-image-link-rels'][$i]) == ''){
+										echo '<select  id="' . $this->get_field_id('slider-image-link-rels'.$i) . '" class="weptile-image-slider-image-link-rel-select widefat" name="' . $this->get_field_name('slider-image-link-rels') . '[]" >';
+
+										foreach($rel_options as $key => $value){
+											echo'<option value="'.$key.'" '.( esc_attr($instance['slider-image-link-rels'][$i]) == $key ? ' selected="selected" ' : '' ).'>'.$value.'</option>';
+										}
+										echo '</select>';
+									}else{
+										echo '<input  id="' . $this->get_field_id('slider-image-link-rels'.$i) . '" class="weptile-image-slider-image-link-rel-input widefat" type="text" name="' . $this->get_field_name('slider-image-link-rels') . '[]" ' .
+											((esc_attr($instance['slider-image-link-targets'][$i]) != '') ? ' value="' . esc_attr($instance['slider-image-link-rels'][$i]) . '" ' : '') . ' /><button type="button" title="'.__('Cancel custom rel value input', $this->textdomain).'" class="button weptile-image-slider-image-link-rel-cancel-button" >X</button>';
+									}
+							echo'
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
 									<input  id="' . $this->get_field_id('slider-image-caption-'.$i) . '" class="weptile-image-slider-image-caption-input widefat" type="text" placeholder="' . __('Caption :', $this->textdomain) . '" name="' . $this->get_field_name('slider-image-captions') . '[]" ' .
 										((esc_attr($instance['slider-image-captions'][$i]) != '') ? ' value="' . esc_attr($instance['slider-image-captions'][$i]) . '" ' : '') . ' />
 								</td>
 							</tr>
 							<tr>
-								<td>
+								<td colspan="2">
 									<input  id="' . $this->get_field_id('slider-image-alt-'.$i) . '" class="weptile-image-slider-image-alt-input widefat" type="text" placeholder="' . __('Alt :', $this->textdomain) . '" name="' . $this->get_field_name('slider-image-alts') . '[]" ' .
 										((esc_attr($instance['slider-image-alts'][$i]) != '') ? ' value="' . esc_attr($instance['slider-image-alts'][$i]) . '" ' : '') . ' />
 								</td>
@@ -229,12 +304,16 @@ class Weptile_Image_Slider_Widget extends WP_Widget {
 		<input type="hidden" id="' . $this->get_field_id('slider-images') . '" name="' . $this->get_field_name('slider-images') . '[]" disabled="disabled"  />
 		<button id="' . $this->get_field_id('slider-images-upload-button') . '" class="button" type="button" style="margin: 5px auto; display: block;">' . __('Upload or Pick Image', $this->textdomain) . '</button>
 		<script>
+		window.weptile_link_target_select_options = \'<option value="_blank">'.__('New page/tab', $this->textdomain).'</option><option value="_self">'. __('Same page', $this->textdomain).'</option><option value="_parent">'.__('In the container of the frame', $this->textdomain).'</option><option value="_top">'.__('Same window of the frame\\\'s container', $this->textdomain).'</option><option value="weptile_custom_frame_name">'.__('Custom frame name...', $this->textdomain).'</option>\';
+		window.weptile_link_target_input_title = "'.__('Cancel custom frame name input', $this->textdomain).'";
+
+		window.weptile_link_rel_select_options = \'<option></option><option>alternate</option><option>author</option><option>bookmark</option><option>help</option><option>license</option><option>next</option><option>nofollow</option><option>noreferrer</option><option>prefetch</option><option>prev</option><option>search</option><option>tag</option><option value="weptile_custom_rel">'.__('Custom rel value...', $this->textdomain).'</option>\';
+		window.weptile_link_rel_input_title = "'.__('Cancel custom rel value input', $this->textdomain).'";
+		window.weptile_custom_theme_button_title = "'.__('Custom Theme...', $this->textdomain).'";
+		window.weptile_slider_theme_select_options = \'<option value="default">'.__('Default Theme', $this->textdomain).'</option><option value="light">'.__('Light Theme', $this->textdomain).'</option><option value="dark">'.__('Dark Theme', $this->textdomain).'</option><option value="bar">'.__('Bar Theme', $this->textdomain).'</option><option value="weptile_custom_theme">'.__('Custom Theme...', $this->textdomain).'</option>\';
 		jQuery(function () {
 			jQuery("#' . $this->get_field_id('slider-images-order') . '").sortable({
-					placeholder: "weptile-image-slider-images-order-item-placeholder",
-					stop: function(event, ui) {
-
-					}
+					placeholder: "weptile-image-slider-images-order-item-placeholder"
 				});
 		});
 		function apply_insert_button_filter(iframejq) {
@@ -255,10 +334,7 @@ class Weptile_Image_Slider_Widget extends WP_Widget {
 			}, 1);
 		}
 		</script>
-		';
-
-
-		echo 'This widget is brought to you by <a href="http://weptile.com" target="_blank" title="wordpress development">Weptile</a>.';
+		This widget is brought to you by <a href="http://weptile.com" target="_blank" title="wordpress development">Weptile</a>.';
 	}
 
 	public function widget($args, $instance) {
@@ -310,6 +386,16 @@ class Weptile_Image_Slider_Widget extends WP_Widget {
 			if (empty($slider_options['theme'])) {
 				$slider_options['theme'] = 'default';
 			}
+
+			if (array_search($slider_options['theme'],$this->default_themes) === false){
+				//if this is a custom theme
+				//first check if the specified folder exists
+				if (is_dir(WP_PLUGIN_DIR.'/'.$slider_options['theme']))
+					wp_register_style('weptile-image-slider-widget-nivo-slider-theme-'.$slider_options['theme'], WP_PLUGIN_URL . '/'.$slider_options['theme'].'/'.$slider_options['theme'].'.css');
+				else
+					$slider_options['theme'] = 'default';
+			}
+
 			wp_enqueue_style('weptile-image-slider-widget-nivo-slider-theme-' . $slider_options['theme']);
 
 			if ($slider_options['responsive'] != true)
@@ -328,7 +414,7 @@ class Weptile_Image_Slider_Widget extends WP_Widget {
 
 
 				$image_url = get_site_url() . '/wp-content/plugins/' . basename(dirname(__FILE__)) . '/cache/' . str_ireplace(substr($image_file_name, -4), '-' . $suffix . substr($image_file_name, -4), $image_file_name);
-				echo ( !empty($instance['slider-image-links'][$i]) ? '<a href="'.$instance['slider-image-links'][$i].'" >' : '' );
+				echo ( !empty($instance['slider-image-links'][$i]) ? '<a href="'.$instance['slider-image-links'][$i].'" target="'.$instance['slider-image-link-targets'][$i].'" rel="'.$instance['slider-image-link-rels'][$i].'" >' : '' );
 				echo '<img src="' . $image_url . '" alt="'. (!empty($instance['slider-image-alts'][$i]) ? $instance['slider-image-alts'][$i] : '') .'" title="'. ( !empty($instance['slider-image-captions'][$i]) ? $instance['slider-image-captions'][$i] : '' ) .'" />';
 				echo ( !empty($instance['slider-image-links'][$i]) ? '</a>' : '' );
 			}
@@ -397,16 +483,26 @@ class Weptile_Image_Slider_Widget extends WP_Widget {
 			$suffix_thumb ='resized-30x30-thumbnail';
 
 			$image_size = getimagesize($image_path);
-			if( $image_size[0] <= $instance['slider-width'] && $image_size[1] <= $instance['slider-height']){ // source image dimensions' are equal to target copy the image to cache
+			if( $image_size[0] <= $instance['slider-width'] && $image_size[1] <= $instance['slider-height']){ // source image dimensions' are equal or smaller to target copy the image to cache
 				$extension = substr($image_path,strrpos($image_path,'.'));
 				$new_image_file_name = substr($image_path,strrpos($image_path,'/') + 1);
 				$new_image_file_name_with_suffix = str_ireplace($extension, '-'.$suffix.$extension ,$new_image_file_name);
 				copy($image_path , $dest_path . $new_image_file_name_with_suffix);
 			}else{
-				image_resize($image_path, $instance['slider-width'], $instance['slider-height'], true, $suffix, $dest_path, 100);
+				$image = wp_get_image_editor($image_path);
+				if ( ! is_wp_error( $image ) ) {
+					$image->set_quality(100);
+					$image->resize( $instance['slider-width'], $instance['slider-height'], true );
+					$image->save($image->generate_filename($suffix, $dest_path));
+				}
 			}
-
-			image_resize($image_path, 30, 30, true, $suffix_thumb, $dest_path, 100); //thumbnails for wp admin side
+			$image = wp_get_image_editor($image_path);
+			if ( ! is_wp_error($image) ) {
+				$image->set_quality(100);
+				$image->resize(30, 30, true);
+				$image->save($image->generate_filename($suffix_thumb, $dest_path));
+				//thumbnails for wp admin side
+			}
 		}
 
 		return $instance;

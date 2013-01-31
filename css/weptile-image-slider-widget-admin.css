@@ -55,3 +55,7 @@
 .weptile-tr-with-description + tr{ display:none; font-size:11px; text-align:justify; }
 
 .weptile-tr-with-description:hover + tr, .weptile-tr-with-description + tr:hover{ display:table-row; }
+.weptile-image-slider-image-link-target-input, .weptile-image-slider-image-link-rel-input{ width:78px;}
+.weptile-image-slider-image-link-target-select, .weptile-image-slider-image-link-rel-select {width:100px;}
+.weptile-image-slider-theme-select {width: 73px;}
+.weptile-image-slider-custom-theme-input {width: 40px;}

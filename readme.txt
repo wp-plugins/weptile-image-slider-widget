@@ -3,8 +3,8 @@ Contributors: weptile, jrds
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=WQ5TC9J9UWALN
 Tags: image, slider, widget, slideshow, nivo, sidebar, rotator, responsive
 Requires at least: 3.3
-Tested up to: 3.5
-Stable tag: 1.0.3
+Tested up to: 3.5.1
+Stable tag: 1.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -48,6 +48,9 @@ Yes. As many as you like.
 = Can we use the widgets in the same page where we have another nivo script running? =
 Yes. It won't conflict with existing nivo scripts.
 
+= Can we change the appearence of sliders? =
+Yes. There are 4 out of the box themes for our slider widget. You can also add custom themes if you want. All you have to do is create a folder in your /plugins folder and name it as you like (for example: minimal-slider) and put your css and image files in it. In the widget options select that you want to specify a custom theme and write your own theme folder's name (for exmaple: minimal-slider). You can use any available theme css as your theme template to create a new one. One last thing, you must use your theme's name in your css file as a namespace with "theme" prefix (for example: .theme-minimal-slider{ ... } ).
+
 == Screenshots ==
 
 1. Weptile Image Slider Widget Settings Panel
@@ -57,6 +60,13 @@ Yes. It won't conflict with existing nivo scripts.
 
 
 == Changelog ==
+
+= 1.0.4 =
+
+* Bug fix: Admin panel javascript conflict about media library popup window resolved.
+* Feature: Added "target" and "rel" attribute options to the image links' settings.
+* Feature: Now you can implement custom themes for your slider, see FAQ section for details.
+* Deprecated image_resize function replaced with the new WP_Image_Editor class.
 
 = 1.0.3 =
 
