@@ -63,6 +63,7 @@ Yes. There are 4 out of the box themes for our slider widget. You can also add c
 
 = 1.0.4 =
 
+* Bug fix: Image links not working on IE
 * Bug fix: Admin panel javascript conflict about media library popup window resolved.
 * Feature: Added "target" and "rel" attribute options to the image links' settings.
 * Feature: Now you can implement custom themes for your slider, see FAQ section for details.
