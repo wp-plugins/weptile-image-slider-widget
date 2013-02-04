@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: image, slider, widget, slideshow, nivo, sidebar, rotator, responsive
 Requires at least: 3.3
 Tested up to: 3.5.1
-Stable tag: 1.0.4
+Stable tag: 1.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,9 +61,13 @@ Yes. There are 4 out of the box themes for our slider widget. You can also add c
 
 == Changelog ==
 
-= 1.0.4 =
+= 1.0.5 =
 
 * Bug fix: Image links not working on IE
+* Bug fix: Plugin was broken on older versions of Wordpress 3.5
+
+= 1.0.4 =
+
 * Bug fix: Admin panel javascript conflict about media library popup window resolved.
 * Feature: Added "target" and "rel" attribute options to the image links' settings.
 * Feature: Now you can implement custom themes for your slider, see FAQ section for details.

@@ -3,7 +3,7 @@
 Plugin Name: Weptile Image Slider Widget
 Plugin URI: http://weptile.com
 Description: Easy, lightweight, responsive sidebar image slider widget. Utilizes the Nivo slider script. Includes lots and lots of customization options and all done within the widget. Allows multiple widgets on one screen and can be used in any sidebar. (Please visit <a href="http://weptile.com" target="_blank" title="wordpress development">Weptile.com</a> for more. You can also <a href="http://weptile.com" target="_blank" title="wordpress development">HIRE WEPTILE</a> for all your Wordpress projects and/or for WP support.)
-Version: 1.0.4
+Version: 1.0.5
 Author: Weptile (Algün & Ufuk)
 Author URI: http://weptile.com
 License: GPL v3
@@ -489,19 +489,25 @@ class Weptile_Image_Slider_Widget extends WP_Widget {
 				$new_image_file_name_with_suffix = str_ireplace($extension, '-'.$suffix.$extension ,$new_image_file_name);
 				copy($image_path , $dest_path . $new_image_file_name_with_suffix);
 			}else{
-				$image = wp_get_image_editor($image_path);
-				if ( ! is_wp_error( $image ) ) {
-					$image->set_quality(100);
-					$image->resize( $instance['slider-width'], $instance['slider-height'], true );
-					$image->save($image->generate_filename($suffix, $dest_path));
-				}
+				if (function_exists('wp_get_image_editor')){
+					$image = wp_get_image_editor($image_path);
+					if ( ! is_wp_error( $image ) ) {
+						$image->set_quality(100);
+						$image->resize( $instance['slider-width'], $instance['slider-height'], true );
+						$image->save($image->generate_filename($suffix, $dest_path));
+					}
+				}else
+					image_resize($image_path, $instance['slider-width'], $instance['slider-height'], true, $suffix, $dest_path, 100); //older versions of wp < 3.5
 			}
-			$image = wp_get_image_editor($image_path);
-			if ( ! is_wp_error($image) ) {
-				$image->set_quality(100);
-				$image->resize(30, 30, true);
-				$image->save($image->generate_filename($suffix_thumb, $dest_path));
-				//thumbnails for wp admin side
+			if (function_exists('wp_get_image_editor')){
+				$image = wp_get_image_editor($image_path);
+				if ( ! is_wp_error($image) ) {
+					$image->set_quality(100);
+					$image->resize(30, 30, true);
+					$image->save($image->generate_filename($suffix_thumb, $dest_path)); //thumbnails for wp admin side
+				}
+			}else{
+				image_resize($image_path, 30, 30, true, $suffix_thumb, $dest_path, 100); //thumbnails for wp admin side //older versions of wp < 3.5
 			}
 		}
 
