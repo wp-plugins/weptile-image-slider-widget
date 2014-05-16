@@ -3,16 +3,16 @@ Contributors: weptile, jrds
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=WQ5TC9J9UWALN
 Tags: image, slider, widget, slideshow, nivo, sidebar, rotator, responsive
 Requires at least: 3.3
-Tested up to: 3.5.1
-Stable tag: 1.0.5
+Tested up to: 3.9.1
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Easily create responsive & lightweight image slider (rotator) widgets in your sidebars.
+Easily create responsive & lightweight image slider (rotator) widgets in any sidebar, post or page.
 
 == Description ==
 
-Weptile Image Slider Widget is a responsive, easy, lightweight image slider widget plugin. Integrates nivo slider script without any conflicts. 
+Weptile Image Slider Widget is a responsive, easy, lightweight image slider widget plugin integrating nivo slider script to any sidebar, post or page without any conflicts. 
 
 You can add images to rotate in any sidebar. Arrange image order with drag & drop. You can also add links to each image.
 
@@ -20,15 +20,43 @@ The slider settings are all done within the widget. There are 16 widget settings
 
 You can use multiple sliders on multiple sidebars on the same page.
 
+You can use the shortcode support to add it to your posts or pages.
+
+Example shortcode:
+[weptile-slider imgs='http://url-to-image1.jpg,http://url-to-image2.jpg,http://url-to-image3.jpg' width=700 height=100 responsive=0 effect=boxRandom directionalnav=0 buttonnav=1 pausehover=1 startrandom=1 slices=30]
+
+Shortcode Variables:
+imgs : images to rotate in slider. with comma (',') in between url's.
+width : number pixel value, without px at the end
+height : number pixel value, without px at the end
+responsive : 0 or 1 (off / on)
+theme : default,light,dark,bar
+directional-nav : 0 or 1 (deafult: 0)
+button-nav : 0 or 1 (deafult: 0)
+pause-hover : 0 or 1 (deafult: 0)
+start-random : 0 or 1 (deafult: 0)
+slices : any integer value (default is 15)
+box-columns : any integer value (default is 8)
+box-rows (sayi degeri olacak, default:4)
+prev-text : any text for the previous button (default:Previous)
+next-text : any text for the next button (default:Next)
+effect : (fade,fold,slideInLeft,slideInRight,random,sliceDown,sliceDownLeft,sliceUp,sliceUpLeft,sliceUpDown,sliceUpDownLeft,boxRandom,boxRain,boxRainReverse,boxRainGrow,boxRainGrowReverse)
+
 == Installation ==
 
 1. Upload the 'weptile-image-slider-widget' folder to the '/wp-content/plugins/' directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Add your "weptile image slider widget" to any sidebar from the 'Widgets' screen.
-4. Setup the slider / rotator setting within the widget
+4. Setup the slider / rotator setting within the widget or use the shortcode in the post/page editor.
 5. Enjoy!
 
 == Frequently asked questions ==
+
+= Can we use the slider in any sidebar?=
+Yes.
+
+= Can we use the slider in any page or post?=
+Yes! (just added this in this update - more to follow)
 
 = Can we add links to images? =
 Yes.  You can add a different link for each image in each slider, as you like.

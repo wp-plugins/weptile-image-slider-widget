@@ -41,6 +41,7 @@ jQuery(function () {
 		return false;
 	});
 
+
 	window.weptile_send_to_editor = function (html) {
 		var imgurl = jQuery('img', html).attr('src');
 		if (imgurl == undefined)
@@ -62,6 +63,8 @@ jQuery(function () {
 		} else {
 			parent_li.find('input').prop('disabled', false);
 		}
+
+        jQuery(this).parent().parent().parent().parent().find('input[name=savewidget]').click();
 	});
 
 	jQuery(document).on('click', '.weptile-image-slider-images-details-button', function () {
@@ -124,3 +127,4 @@ jQuery(function () {
 	});
 
 });
+

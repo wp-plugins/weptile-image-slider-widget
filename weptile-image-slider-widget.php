@@ -3,8 +3,8 @@
 Plugin Name: Weptile Image Slider Widget
 Plugin URI: http://weptile.com
 Description: Easy, lightweight, responsive sidebar image slider widget. Utilizes the Nivo slider script. Includes lots and lots of customization options and all done within the widget. Allows multiple widgets on one screen and can be used in any sidebar. (Please visit <a href="http://weptile.com" target="_blank" title="wordpress development">Weptile.com</a> for more. You can also <a href="http://weptile.com" target="_blank" title="wordpress development">HIRE WEPTILE</a> for all your Wordpress projects and/or for WP support.)
-Version: 1.0.5
-Author: Weptile (Algün & Ufuk)
+Version: 1.1.0
+Author: Weptile (Onur & Ufuk)
 Author URI: http://weptile.com
 License: GPL v3
 
@@ -513,8 +513,6 @@ class Weptile_Image_Slider_Widget extends WP_Widget {
 
 		return $instance;
 	}
-
-
 }
 
 function strip_tags_for_array($value,$key){
@@ -557,7 +555,7 @@ function weptile_slider_widget_clear_cache() {
  * Script & stype loader for widget.php
  */
 function weptile_image_slider_widget_admin_actions($hook) {
-	if ('widgets.php' != $hook) {
+	if (('widgets.php' != $hook) && ('customize.php' != $hook)) {
 		return;
 	}
 	// Scripts
@@ -605,3 +603,127 @@ function weptile_image_slider_widget_actions() {
 add_action('admin_enqueue_scripts', 'weptile_image_slider_widget_admin_actions');
 add_action('wp_enqueue_scripts', 'weptile_image_slider_widget_actions');
 add_action('widgets_init', create_function('', 'register_widget( "weptile_image_slider_Widget" );'));
+
+function weptile_image_slider_shortcode( $atts, $content = null ) {
+    extract( shortcode_atts( array(
+        'imgs' => '',
+        'width' => '0',
+        'height' => '0',
+        'theme' => 'default',
+        'effect' => '',
+        'speed' => '',
+        'duration' => '',
+        'slice' => '',
+        'boxcolumns' => '',
+        'boxrows' => '',
+        'prevtext' => '',
+        'nexttext' => '',
+        'responsive' => '0',
+		'directionalnav' => '',
+		'buttonnav' => '',
+		'pausehover' => '',
+		'startrandom' => ''
+
+    ), $atts ) );
+    $textdomain_shortcode = 'weptile_image_slider_textdomain';
+    $default_themes = array('default','light','dark','bar');
+    $shortcode_id = 'widget-weptile-image-slider-widget-shortcode-weptile-image-slider-widget-nivo-slider';
+    $is_there_a_problem = false;
+    $imgs = str_replace(' ', '', $imgs);
+    $shortcode_images = explode(',',$imgs);
+    if (count($shortcode_images) === 0) {
+        $is_there_a_problem = true;
+        $error_message = '<p>'. __('No image found for slider', $textdomain_shortcode) .'</p>';
+    }
+
+    if ($width < 50 || $height < 50){
+        $is_there_a_problem = true;
+        $error_message = '<p>'. __('Slider height and/or width are not valid or smaller than 50px', $textdomain_shortcode) .'</p>';
+    }
+
+
+    if ($is_there_a_problem === false) {
+        $slider_options = array(
+            'width' => $width,
+            'height' => $height,
+            'theme' => $theme,
+            'effect' => $effect,
+            'speed' => $speed,
+            'duration' => $duration,
+            'directional-nav' => $directionalnav,
+            'button-nav' => $buttonnav,
+            'pause-hover' => $pausehover,
+            'start-random' => $startrandom,
+            'slices' => $slices,
+            'box-columns' => $boxcolumns,
+            'box-rows' => $boxrows,
+            'prev-text' => $prevtext,
+            'next-text' => $nexttext,
+            'responsive' => $responsive
+        );
+
+        if (empty($slider_options['theme'])) {
+            $slider_options['theme'] = 'default';
+        }
+
+        if (array_search($slider_options['theme'],$default_themes) === false){
+            //if this is a custom theme
+            //first check if the specified folder exists
+            if (is_dir(WP_PLUGIN_DIR.'/'.$slider_options['theme']))
+                wp_register_style('weptile-image-slider-widget-nivo-slider-theme-'.$slider_options['theme'], WP_PLUGIN_URL . '/'.$slider_options['theme'].'/'.$slider_options['theme'].'.css');
+            else
+                $slider_options['theme'] = 'default';
+        }
+
+        wp_enqueue_style('weptile-image-slider-widget-nivo-slider-theme-' . $slider_options['theme']);
+
+        if ($slider_options['responsive'] != '1')
+            echo '<style type="text/css" >.slider-wrapper.' . $shortcode_id . '{ width:' . $slider_options['width'] . 'px; /*height:' . $slider_options['height'] . 'px;*/ }</style>';
+
+        echo
+            '<div class="slider-wrapper weptile-image-slider-widget-slider-wrapper theme-' . $slider_options['theme'] . ' ' . $shortcode_id . '">'.
+            '<div class="nivoSliderWeptile" id="' . $shortcode_id . '">';
+        foreach ($shortcode_images  as $shortcode_image) {
+
+            $image_path = str_ireplace(get_site_url(), '', $image);
+            $image_path = weptile_get_wp_config_path() . $image_path;
+
+            $image_file_name = substr($image_path, strripos($image_path, '/') + 1);
+            $suffix = 'resized-' . $slider_options['width'] . 'x' . $slider_options['height'];
+
+
+            $image_url = $shortcode_image;
+            echo ( !empty($instance['slider-image-links'][$i]) ? '<a href="'.$instance['slider-image-links'][$i].'" target="'.$instance['slider-image-link-targets'][$i].'" rel="'.$instance['slider-image-link-rels'][$i].'" >' : '' );
+            echo '<img src="' . $image_url . '" alt="'. (!empty($instance['slider-image-alts'][$i]) ? $instance['slider-image-alts'][$i] : '') .'" title="'. ( !empty($instance['slider-image-captions'][$i]) ? $instance['slider-image-captions'][$i] : '' ) .'" />';
+            echo ( !empty($instance['slider-image-links'][$i]) ? '</a>' : '' );
+        }
+        echo
+            '</div>'.
+            '</div>';
+        echo '<script>
+			jQuery(window).load(function() {
+				jQuery("#' . $shortcode_id . '").nivoSliderWeptile({
+					animSpeed:' . (empty($slider_options['speed']) ? 650 : $slider_options['speed'] ) . ',
+					pauseTime:' . (empty($slider_options['duration']) ? 5000 : $slider_options['duration'] ) . ',
+					effect:"' . (empty($slider_options['effect']) ? 'fade' : $slider_options['effect'] ) . '",
+					prevText: "' . __('Previous', $textdomain_shortcode) . '",
+					nextText: "' . __('Next', $textdomain_shortcode) . '",
+					directionNav: ' . ($slider_options['directional-nav'] ? 'true' : 'false') . ',
+					controlNav: ' . ($slider_options['button-nav'] ? 'true' : 'false') . ',
+					pauseOnHover: ' . ($slider_options['pause-hover'] ? 'true' : 'false') . ',
+					randomStart: ' . ($slider_options['start-random'] ? 'true' : 'false') . ',
+					slices: ' . (empty($slider_options['slices']) ? '15' : $slider_options['slices']) . ',
+					boxCols:' . (empty($slider_options['box-columns']) ? '8' : $slider_options['box-columns']) . ',
+					boxRows:' . (empty($slider_options['box-rows']) ? '4' : $slider_options['box-rows']) . ',
+					prevText: "' . (empty($slider_options['prev-text']) ? 'Previous' : $slider_options['prev-text']) . '",
+					nextText: "' . (empty($slider_options['next-text']) ? 'Next' : $slider_options['next-text']) . '"
+				});
+			});
+			</script>';
+
+        // Else
+    } else {
+        echo $error_message;
+    }
+}
+add_shortcode( 'weptile-slider', 'weptile_image_slider_shortcode' );
