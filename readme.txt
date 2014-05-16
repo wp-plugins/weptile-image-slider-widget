@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: image, slider, widget, slideshow, nivo, sidebar, rotator, responsive
 Requires at least: 3.3
 Tested up to: 3.9.1
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -41,6 +41,12 @@ box-rows (sayi degeri olacak, default:4)
 prev-text : any text for the previous button (default:Previous)
 next-text : any text for the next button (default:Next)
 effect : (fade,fold,slideInLeft,slideInRight,random,sliceDown,sliceDownLeft,sliceUp,sliceUpLeft,sliceUpDown,sliceUpDownLeft,boxRandom,boxRain,boxRainReverse,boxRainGrow,boxRainGrowReverse)
+
+Change Log:
+1.1.0
+Added Shortcode support for posts/pages
+Fixed several bugs in widget update
+
 
 == Installation ==
 
