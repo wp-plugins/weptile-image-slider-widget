@@ -1,5 +1,5 @@
 === Weptile Image Slider Widget ===
-Contributors: weptile, jrds
+Contributors: weptile, onurure, jrds
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=WQ5TC9J9UWALN
 Tags: image, slider, widget, slideshow, nivo, sidebar, rotator, responsive
 Requires at least: 3.3
