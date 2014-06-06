@@ -85,6 +85,10 @@ Yes. It won't conflict with existing nivo scripts.
 = Can we change the appearence of sliders? =
 Yes. There are 4 out of the box themes for our slider widget. You can also add custom themes if you want. All you have to do is create a folder in your /plugins folder and name it as you like (for example: minimal-slider) and put your css and image files in it. In the widget options select that you want to specify a custom theme and write your own theme folder's name (for exmaple: minimal-slider). You can use any available theme css as your theme template to create a new one. One last thing, you must use your theme's name in your css file as a namespace with "theme" prefix (for example: .theme-minimal-slider{ ... } ).
 
+= I can not see images in the slider =
+You might want to check your folder permissions for the plugin cache folder. 
+If this error happened after a WP or plugin update, first try to add or remove an image and see if it refreshes the cache. If not try deactivating and reactivating the plugin.
+
 == Screenshots ==
 
 1. Weptile Image Slider Widget Settings Panel
