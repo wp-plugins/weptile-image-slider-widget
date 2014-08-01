@@ -3,7 +3,7 @@
 Plugin Name: Weptile Image Slider Widget
 Plugin URI: http://weptile.com
 Description: Easy, lightweight, responsive sidebar image slider widget. Utilizes the Nivo slider script. Includes lots and lots of customization options and all done within the widget. Allows multiple widgets on one screen and can be used in any sidebar. (Please visit <a href="http://weptile.com" target="_blank" title="wordpress development">Weptile.com</a> for more. You can also <a href="http://weptile.com" target="_blank" title="wordpress development">HIRE WEPTILE</a> for all your Wordpress projects and/or for WP support.)
-Version: 1.1.2
+Version: 1.1.3
 Author: Weptile
 Author URI: http://weptile.com
 License: GPL v3
