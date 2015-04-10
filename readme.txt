@@ -1,10 +1,10 @@
 === Weptile Image Slider Widget ===
-Contributors: weptile, onurure, ufukerdogmus, jrds
+Contributors: weptile, yigitnerukuc, ufukerdogmus, onurure, jrds
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=WQ5TC9J9UWALN
 Tags: image, slider, widget, slideshow, nivo, sidebar, rotator, responsive
 Requires at least: 3.3
-Tested up to: 3.9.1
-Stable tag: 1.1.3
+Tested up to: 4.1.1
+Stable tag: 1.1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -23,7 +23,7 @@ You can use multiple sliders on multiple sidebars on the same page.
 You can use the shortcode support to add it to your posts or pages.
 
 Example shortcode:
-[weptile-slider imgs='http://url-to-image1.jpg,http://url-to-image2.jpg,http://url-to-image3.jpg' width=700 height=100 responsive=0 effect=boxRandom directionalnav=0 buttonnav=1 pausehover=1 startrandom=1 slices=30]
+[weptile-slider imgs='http://url-to-image1.jpg,http://url-to-image2.jpg,http://url-to-image3.jpg' width=700 height=100 responsive=0 effect=boxRandom directionalnav=0 buttonnav=1 pausehover=1 startrandom=1 slices=30 center=1]
 
 Shortcode Variables:
 imgs : images to rotate in slider. with comma (',') in between url's.
@@ -31,18 +31,21 @@ width : number pixel value, without px at the end
 height : number pixel value, without px at the end
 responsive : 0 or 1 (off / on)
 theme : default,light,dark,bar
-directional-nav : 0 or 1 (deafult: 0)
-button-nav : 0 or 1 (deafult: 0)
-pause-hover : 0 or 1 (deafult: 0)
-start-random : 0 or 1 (deafult: 0)
+directional-nav : 0 or 1 (default: 0)
+button-nav : 0 or 1 (default: 0)
+pause-hover : 0 or 1 (default: 0)
+start-random : 0 or 1 (default: 0)
 slices : any integer value (default is 15)
 box-columns : any integer value (default is 8)
 box-rows (sayi degeri olacak, default:4)
 prev-text : any text for the previous button (default:Previous)
 next-text : any text for the next button (default:Next)
-effect : (fade,fold,slideInLeft,slideInRight,random,sliceDown,sliceDownLeft,sliceUp,sliceUpLeft,sliceUpDown,sliceUpDownLeft,boxRandom,boxRain,boxRainReverse,boxRainGrow,boxRainGrowReverse)
+effect : (fade, fold, slideInLeft, slideInRight, random, sliceDown, sliceDownLeft, sliceUp, sliceUpLeft, sliceUpDown, sliceUpDownLeft, boxRandom, boxRain, boxRainReverse, boxRainGrow, boxRainGrowReverse)
+center: 0 or 1 (default: 0)
 
 Change Log:
+1.1.4
+Added shortcode variable to center align the slider on page
 1.1.0
 Added Shortcode support for posts/pages
 Fixed several bugs in widget update
@@ -98,6 +101,14 @@ If this error happened after a WP or plugin update, first try to add or remove a
 
 
 == Changelog ==
+
+= 1.1.4 =
+
+* Feature added: Center align variable added to in-page slider shortcode
+
+= 1.1.3 =
+
+* Feature added: Shortcode to add slider to page
 
 = 1.0.5 =
 

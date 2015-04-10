@@ -3,7 +3,7 @@
 Plugin Name: Weptile Image Slider Widget
 Plugin URI: http://weptile.com
 Description: Easy, lightweight, responsive sidebar image slider widget. Utilizes the Nivo slider script. Includes lots and lots of customization options and all done within the widget. Allows multiple widgets on one screen and can be used in any sidebar. (Please visit <a href="http://weptile.com" target="_blank" title="wordpress development">Weptile.com</a> for more. You can also <a href="http://weptile.com" target="_blank" title="wordpress development">HIRE WEPTILE</a> for all your Wordpress projects and/or for WP support.)
-Version: 1.1.3
+Version: 1.1.4
 Author: Weptile
 Author URI: http://weptile.com
 License: GPL v3
@@ -61,7 +61,9 @@ class Weptile_Image_Slider_Widget extends WP_Widget {
 				'box-rows' => esc_attr($instance['slider-box-rows']),
 				'prev-text' => esc_attr($instance['slider-prev-text']),
 				'next-text' => esc_attr($instance['slider-next-text']),
-				'responsive' => esc_attr($instance['slider-responsive'])
+				'responsive' => esc_attr($instance['slider-responsive']),
+				'centered' => esc_attr($instance['slider-centered'])
+
 			);
 		}
 
@@ -86,6 +88,10 @@ class Weptile_Image_Slider_Widget extends WP_Widget {
 				<td><input  id="' . $this->get_field_id('slider-responsive') . '" name="' . $this->get_field_name('slider-responsive') . '" ' . (($slider_options['responsive'] == true) ? ' checked="checked" ' : '') . ' type="checkbox" value="1" /></td>
 			</tr>
 			<tr style=""><td colspan="2">'.__('This feature makes the slider fits its container in both conditions; if the container smaller/bigger than images or the container resizes. Otherwise slider will render in the dimensions you set above.').'</td></tr>
+			<tr>
+				<td><label for="' . $this->get_field_id('slider-centered') . '">' . __('Centered', $this->textdomain) . '</label> :</td>
+				<td><input  id="' . $this->get_field_id('slider-centered') . '" name="' . $this->get_field_name('slider-centered') . '" ' . (($slider_options['centered'] == true) ? ' checked="checked" ' : '') . ' type="checkbox" value="1" /></td>
+			</tr>
 			<tr>
 				<td><label for="' . $this->get_field_id('slider-theme') . '">' . __('Slider Theme', $this->textdomain) . '</label> :</td>
 				<td>';
@@ -383,7 +389,8 @@ class Weptile_Image_Slider_Widget extends WP_Widget {
 				'box-rows' => esc_attr($instance['slider-box-rows']),
 				'prev-text' => esc_attr($instance['slider-prev-text']),
 				'next-text' => esc_attr($instance['slider-next-text']),
-				'responsive' => esc_attr($instance['slider-responsive'])
+				'responsive' => esc_attr($instance['slider-responsive']),
+				'centered' => esc_attr($instance['slider-centered'])
 			);
 
 			if (empty($slider_options['theme'])) {
@@ -401,9 +408,12 @@ class Weptile_Image_Slider_Widget extends WP_Widget {
 
 			wp_enqueue_style('weptile-image-slider-widget-nivo-slider-theme-' . $slider_options['theme']);
 
-			if ($slider_options['responsive'] != true)
-				echo '<style type="text/css" >.slider-wrapper.' . $this->get_field_id('weptile-image-slider-widget-nivo-slider') . '{ width:' . $slider_options['width'] . 'px; /*height:' . $slider_options['height'] . 'px;*/ }</style>';
-
+			if ($slider_options['responsive'] != true) {
+				if($slider_options['centered'] == true) {
+					$center_text = 'margin:0 auto';
+				}
+				echo '<style type="text/css" >.slider-wrapper.' . $this->get_field_id('weptile-image-slider-widget-nivo-slider') . '{ width:' . $slider_options['width'] . 'px; '.$center_text.' /*height:' . $slider_options['height'] . 'px;*/ }</style>';
+			}
 			echo
 			'<div class="slider-wrapper weptile-image-slider-widget-slider-wrapper theme-' . $slider_options['theme'] . ' ' . $this->get_field_id('weptile-image-slider-widget-nivo-slider') . '">'.
 				'<div class="nivoSliderWeptile" id="' . $this->get_field_id('weptile-image-slider-widget-nivo-slider') . '">';
@@ -625,7 +635,8 @@ function weptile_image_slider_shortcode( $atts, $content = null ) {
 		'directionalnav' => '',
 		'buttonnav' => '',
 		'pausehover' => '',
-		'startrandom' => ''
+		'startrandom' => '',
+		'center' => '0'
 
     ), $atts ) );
     $textdomain_shortcode = 'weptile_image_slider_textdomain';
@@ -662,7 +673,8 @@ function weptile_image_slider_shortcode( $atts, $content = null ) {
             'box-rows' => $boxrows,
             'prev-text' => $prevtext,
             'next-text' => $nexttext,
-            'responsive' => $responsive
+            'responsive' => $responsive,
+			'center' => $center
         );
 
         if (empty($slider_options['theme'])) {
@@ -680,9 +692,14 @@ function weptile_image_slider_shortcode( $atts, $content = null ) {
 
         wp_enqueue_style('weptile-image-slider-widget-nivo-slider-theme-' . $slider_options['theme']);
 
-        if ($slider_options['responsive'] != '1')
-            echo '<style type="text/css" >.slider-wrapper.' . $shortcode_id . '{ width:' . $slider_options['width'] . 'px; /*height:' . $slider_options['height'] . 'px;*/ }</style>';
-
+        if ($slider_options['responsive'] != '1') {
+			if($slider_options['center'] == 1) {
+				$center_text = 'margin:0 auto';
+			}
+            echo '<style type="text/css" >.slider-wrapper.' . $shortcode_id . '{ width:' . $slider_options['width'] . 'px;'.$center_text.' /*height:' . $slider_options['height'] . 'px;*/ }</style>';
+		}
+		
+		
         echo
             '<div class="slider-wrapper weptile-image-slider-widget-slider-wrapper theme-' . $slider_options['theme'] . ' ' . $shortcode_id . '">'.
             '<div class="nivoSliderWeptile" id="' . $shortcode_id . '">';
