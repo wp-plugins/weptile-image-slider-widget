@@ -3,7 +3,7 @@
 Plugin Name: Weptile Image Slider Widget
 Plugin URI: http://weptile.com
 Description: Easy, lightweight, responsive sidebar image slider widget. Utilizes the Nivo slider script. Includes lots and lots of customization options and all done within the widget. Allows multiple widgets on one screen and can be used in any sidebar. (Please visit <a href="http://weptile.com" target="_blank" title="wordpress development">Weptile.com</a> for more. You can also <a href="http://weptile.com" target="_blank" title="wordpress development">HIRE WEPTILE</a> for all your Wordpress projects and/or for WP support.)
-Version: 1.1.4
+Version: 1.2.0
 Author: Weptile
 Author URI: http://weptile.com
 License: GPL v3
@@ -41,8 +41,8 @@ class Weptile_Image_Slider_Widget extends WP_Widget {
 	}
 
 	public function form($instance) {
+	
 		// outputs the options form on admin
-
 		if ($instance) {
 			$slider_options = array(
 				'title' => esc_attr($instance['title']),
@@ -62,7 +62,8 @@ class Weptile_Image_Slider_Widget extends WP_Widget {
 				'prev-text' => esc_attr($instance['slider-prev-text']),
 				'next-text' => esc_attr($instance['slider-next-text']),
 				'responsive' => esc_attr($instance['slider-responsive']),
-				'centered' => esc_attr($instance['slider-centered'])
+				'centered' => esc_attr($instance['slider-centered']),
+				'shuffle' => esc_attr($instance['slider-shuffle'])
 
 			);
 		}
@@ -132,6 +133,10 @@ class Weptile_Image_Slider_Widget extends WP_Widget {
 			<tr>
 				<td><label for="' . $this->get_field_id('slider-start-random') . '">' . __('Start random', $this->textdomain) . '</label> :</td>
 				<td><input  id="' . $this->get_field_id('slider-start-random') . '" name="' . $this->get_field_name('slider-start-random') . '" ' . (($slider_options['start-random'] == true) ? ' checked="checked" ' : '') . ' type="checkbox" value="1" /></td>
+			</tr>			
+			<tr>
+				<td><label for="' . $this->get_field_id('slider-shuffle') . '">' . __('Shuffle', $this->textdomain) . '</label> :</td>
+				<td><input  id="' . $this->get_field_id('slider-shuffle') . '" name="' . $this->get_field_name('slider-shuffle') . '" ' . (($slider_options['shuffle'] == true) ? ' checked="checked" ' : '') . ' type="checkbox" value="1" /></td>
 			</tr>
 			<tr>
 				<td><label for="' . $this->get_field_id('slider-prev-text') . '">' . __('Previous Text', $this->textdomain) . '</label> :</td>
@@ -207,13 +212,13 @@ class Weptile_Image_Slider_Widget extends WP_Widget {
 					$image_path = str_ireplace(get_site_url(), '', $image);
 					$image_path = weptile_get_wp_config_path() . $image_path;
 					$image_file_name = substr($image_path, strripos($image_path, '/') + 1);
-					$suffix = 'resized-30x30';
+					$suffix = 'resized-350x350';
 
-					$image_url = get_site_url() . '/wp-content/plugins/' . basename(dirname(__FILE__)) . '/cache/' . str_ireplace(substr($image_file_name, -4), '-' . $suffix.'-thumbnail' . substr($image_file_name, -4), $image_file_name);
+					$image_url = get_site_url() . '/wp-content/uploads/weptile-image-slider-cache/' . str_ireplace(substr($image_file_name, -4), '-' . $suffix.'-thumbnail' . substr($image_file_name, -4), $image_file_name);
 
 					echo
 					'<li>
-						<img src="' . esc_attr($image_url) . '" /><button class="weptile-image-slider-images-delete-button button" type="button">' . __('Remove Image', $this->textdomain) . '</button>
+						<img src="' . esc_attr($image_url) . '" /><button class="weptile-image-slider-images-delete-button button" type="button">' . __('<i class="fa fa-remove"></i>', $this->textdomain) . '</button>
 						<table style="width:100%;" border="0" cellpadding="4" class="weptile-image-slider-images-details-table">
 							<tr>
 								<td colspan="2">
@@ -296,7 +301,7 @@ class Weptile_Image_Slider_Widget extends WP_Widget {
 							</tr>
 						</table>
 						<input type="hidden" name="' . $this->get_field_name('slider-images') . '[]" value="' . esc_attr($image) . '" />
-						<button class="weptile-image-slider-images-details-button button" type="button">' . __('Details', $this->textdomain) . '</button>'.
+						<button class="weptile-image-slider-images-details-button button" type="button">' . __('<i class="fa fa-link"></i>', $this->textdomain) . '</button>'.
 					'</li>';
 					$i++;
 				}
@@ -339,7 +344,7 @@ class Weptile_Image_Slider_Widget extends WP_Widget {
 				}
 			}, 1);
 		}
-		</script>
+		</script><br><br>
 		This widget is brought to you by <a href="http://weptile.com" target="_blank" title="wordpress development">Weptile</a>.
 		<div>Does this plugin help you out?
 				​<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9RUSUW5XBBESE" target="_blank"><img src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!"></a>
@@ -390,7 +395,8 @@ class Weptile_Image_Slider_Widget extends WP_Widget {
 				'prev-text' => esc_attr($instance['slider-prev-text']),
 				'next-text' => esc_attr($instance['slider-next-text']),
 				'responsive' => esc_attr($instance['slider-responsive']),
-				'centered' => esc_attr($instance['slider-centered'])
+				'centered' => esc_attr($instance['slider-centered']),
+				'shuffle' => esc_attr($instance['slider-shuffle']),
 			);
 
 			if (empty($slider_options['theme'])) {
@@ -414,9 +420,15 @@ class Weptile_Image_Slider_Widget extends WP_Widget {
 				}
 				echo '<style type="text/css" >.slider-wrapper.' . $this->get_field_id('weptile-image-slider-widget-nivo-slider') . '{ width:' . $slider_options['width'] . 'px; '.$center_text.' /*height:' . $slider_options['height'] . 'px;*/ }</style>';
 			}
+			
+				
 			echo
 			'<div class="slider-wrapper weptile-image-slider-widget-slider-wrapper theme-' . $slider_options['theme'] . ' ' . $this->get_field_id('weptile-image-slider-widget-nivo-slider') . '">'.
 				'<div class="nivoSliderWeptile" id="' . $this->get_field_id('weptile-image-slider-widget-nivo-slider') . '">';
+				
+				if($slider_options['shuffle'] == true) {
+					shuffle($instance['slider-images']);
+				}
 			foreach ($instance['slider-images']  as $i => $image) {
 
 				$image_path = str_ireplace(get_site_url(), '', $image);
@@ -426,7 +438,7 @@ class Weptile_Image_Slider_Widget extends WP_Widget {
 				$suffix = 'resized-' . $slider_options['width'] . 'x' . $slider_options['height'];
 
 
-				$image_url = get_site_url() . '/wp-content/plugins/' . basename(dirname(__FILE__)) . '/cache/' . str_ireplace(substr($image_file_name, -4), '-' . $suffix . substr($image_file_name, -4), $image_file_name);
+				$image_url = get_site_url() . '/wp-content/uploads/weptile-image-slider-cache/' . str_ireplace(substr($image_file_name, -4), '-' . $suffix . substr($image_file_name, -4), $image_file_name);
 				echo ( !empty($instance['slider-image-links'][$i]) ? '<a href="'.$instance['slider-image-links'][$i].'" target="'.$instance['slider-image-link-targets'][$i].'" rel="'.$instance['slider-image-link-rels'][$i].'" >' : '' );
 				echo '<img src="' . $image_url . '" alt="'. (!empty($instance['slider-image-alts'][$i]) ? $instance['slider-image-alts'][$i] : '') .'" title="'. ( !empty($instance['slider-image-captions'][$i]) ? $instance['slider-image-captions'][$i] : '' ) .'" />';
 				echo ( !empty($instance['slider-image-links'][$i]) ? '</a>' : '' );
@@ -467,13 +479,17 @@ class Weptile_Image_Slider_Widget extends WP_Widget {
 		// processes widget options to be saved
 
 		$instance = $old_instance;
+		$weptileFolder = WP_CONTENT_DIR . '/uploads/weptile-image-slider-cache'; 
+			if (!file_exists($weptileFolder)) {
+				 mkdir($weptileFolder, 0777, true);
+		}
 
 		foreach ($old_instance['slider-images']  as $i => $image) { //clear old images and thumbs
 			$image_path = str_ireplace(get_site_url(), '', $image);
 			$image_path = weptile_get_wp_config_path() . $image_path;
 			$image_file_name = substr($image_path, strripos($image_path, '/') + 1);
-			$dest_path = weptile_get_wp_config_path() . '/wp-content/plugins/' . basename(dirname(__FILE__)) . '/cache/';
-			$suffix_thumb ='resized-30x30-thumbnail';
+			$dest_path =  trailingslashit( WP_CONTENT_DIR ).'uploads/weptile-image-slider-cache/';
+			$suffix_thumb ='resized-350x350-thumbnail';
 			$old_suffix = $suffix = 'resized-' . $old_instance['slider-width'] . 'x' . $old_instance['slider-height'];
 			$check_file_path = $dest_path . str_ireplace(substr($image_file_name, -4), '-' . $old_suffix . substr($image_file_name, -4), $image_file_name);
 			if (is_file($check_file_path))
@@ -491,9 +507,9 @@ class Weptile_Image_Slider_Widget extends WP_Widget {
 			$image_path = str_ireplace(get_site_url(), '', $image);
 			$image_path = weptile_get_wp_config_path() . $image_path;
 
-			$dest_path = weptile_get_wp_config_path() . '/wp-content/plugins/' . basename(dirname(__FILE__)) . '/cache/';
+			$dest_path = trailingslashit( WP_CONTENT_DIR ).'uploads/weptile-image-slider-cache/';
 			$suffix = 'resized-' . $instance['slider-width'] . 'x' . $instance['slider-height'];
-			$suffix_thumb ='resized-30x30-thumbnail';
+			$suffix_thumb ='resized-350x350-thumbnail';
 
 			$image_size = getimagesize($image_path);
 			if( $image_size[0] <= $instance['slider-width'] && $image_size[1] <= $instance['slider-height']){ // source image dimensions' are equal or smaller to target copy the image to cache
@@ -516,11 +532,11 @@ class Weptile_Image_Slider_Widget extends WP_Widget {
 				$image = wp_get_image_editor($image_path);
 				if ( ! is_wp_error($image) ) {
 					$image->set_quality(100);
-					$image->resize(30, 30, true);
+					$image->resize(350, 350, true);
 					$image->save($image->generate_filename($suffix_thumb, $dest_path)); //thumbnails for wp admin side
 				}
 			}else{
-				image_resize($image_path, 30, 30, true, $suffix_thumb, $dest_path, 100); //thumbnails for wp admin side //older versions of wp < 3.5
+				image_resize($image_path, 350, 350, true, $suffix_thumb, $dest_path, 100); //thumbnails for wp admin side //older versions of wp < 3.5
 			}
 		}
 
@@ -555,7 +571,7 @@ function weptile_get_wp_config_path() {
 }
 
 function weptile_slider_widget_clear_cache() {
-	$cache_path = weptile_get_wp_config_path() . '/wp-content/plugins/' . basename(dirname(__FILE__)) . '/cache/';
+	$cache_path = trailingslashit( WP_CONTENT_DIR ).'uploads/weptile-image-slider-cache/';
 	$files = glob($cache_path . '*'); // get all file names
 	foreach ($files as $file) { // iterate files
 		if (is_file($file))
@@ -572,17 +588,16 @@ function weptile_image_slider_widget_admin_actions($hook) {
 		return;
 	}
 	// Scripts
-	wp_enqueue_script('media-upload');
-	wp_enqueue_script('thickbox');
+	
 	wp_enqueue_script('jquery-ui-sortable');
 	wp_register_script('weptile-image-slider-widget-admin', path_join(WP_PLUGIN_URL, basename(dirname(__FILE__)) . '/js/weptile-image-slider-widget-admin.js'));
 	wp_enqueue_script('weptile-image-slider-widget-admin');
 
 	// Styles
-	wp_enqueue_style('thickbox');
-	wp_enqueue_style('jquery-ui');
 	wp_register_style('weptile-image-slider-widget', path_join(WP_PLUGIN_URL, basename(dirname(__FILE__)) . '/css/weptile-image-slider-widget-admin.css'));
+	wp_register_style('weptile-image-slider-font-awesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css');
 	wp_enqueue_style('weptile-image-slider-widget');
+	wp_enqueue_style('weptile-image-slider-font-awesome');
 }
 
 /**
@@ -747,3 +762,172 @@ function weptile_image_slider_shortcode( $atts, $content = null ) {
     }
 }
 add_shortcode( 'weptile-slider', 'weptile_image_slider_shortcode' );
+
+
+
+function weptile_image_slider_shortcode_advanced( $atts, $content = null ) {
+    extract( shortcode_atts( array(
+        'items' => '',
+        'width' => '0',
+        'height' => '0',
+        'theme' => 'default',
+        'effect' => '',
+        'speed' => '',
+        'duration' => '',
+        'slice' => '',
+        'boxcolumns' => '',
+        'boxrows' => '',
+        'prevtext' => '',
+        'nexttext' => '',
+        'responsive' => '0',
+		'directionalnav' => '',
+		'buttonnav' => '',
+		'pausehover' => '',
+		'startrandom' => '',
+		'center' => '0'
+
+    ), $atts ) );
+    $textdomain_shortcode = 'weptile_image_slider_textdomain';
+    $default_themes = array('default','light','dark','bar');
+    $shortcode_id = 'widget-weptile-image-slider-widget-shortcode-weptile-image-slider-widget-nivo-slider';
+    $is_there_a_problem = false;
+    $shortcode_images = explode(',',$items);
+    if (count($shortcode_images) === 0) {
+        $is_there_a_problem = true;
+        $error_message = '<p>'. __('No image found for slider', $textdomain_shortcode) .'</p>';
+    }
+
+    if ($width < 50 || $height < 50){
+        $is_there_a_problem = true;
+        $error_message = '<p>'. __('Slider height and/or width are not valid or smaller than 50px', $textdomain_shortcode) .'</p>';
+    }
+
+
+    if ($is_there_a_problem === false) {
+        $slider_options = array(
+            'width' => $width,
+            'height' => $height,
+            'theme' => $theme,
+            'effect' => $effect,
+            'speed' => $speed,
+            'duration' => $duration,
+            'directional-nav' => $directionalnav,
+            'button-nav' => $buttonnav,
+            'pause-hover' => $pausehover,
+            'start-random' => $startrandom,
+            'slices' => $slices,
+            'box-columns' => $boxcolumns,
+            'box-rows' => $boxrows,
+            'prev-text' => $prevtext,
+            'next-text' => $nexttext,
+            'responsive' => $responsive,
+			'center' => $center
+        );
+
+        if (empty($slider_options['theme'])) {
+            $slider_options['theme'] = 'default';
+        }
+
+        if (array_search($slider_options['theme'],$default_themes) === false){
+            //if this is a custom theme
+            //first check if the specified folder exists
+            if (is_dir(WP_PLUGIN_DIR.'/'.$slider_options['theme']))
+                wp_register_style('weptile-image-slider-widget-nivo-slider-theme-'.$slider_options['theme'], WP_PLUGIN_URL . '/'.$slider_options['theme'].'/'.$slider_options['theme'].'.css');
+            else
+                $slider_options['theme'] = 'default';
+        }
+
+        wp_enqueue_style('weptile-image-slider-widget-nivo-slider-theme-' . $slider_options['theme']);
+
+        if ($slider_options['responsive'] != '1') {
+			if($slider_options['center'] == 1) {
+				$center_text = 'margin:0 auto';
+			}
+            echo '<style type="text/css" >.slider-wrapper.' . $shortcode_id . '{ width:' . $slider_options['width'] . 'px;'.$center_text.' /*height:' . $slider_options['height'] . 'px;*/ }</style>';
+		}
+		
+		
+        echo
+            '<div class="slider-wrapper weptile-image-slider-widget-slider-wrapper theme-' . $slider_options['theme'] . ' ' . $shortcode_id . '">'.
+            '<div class="nivoSliderWeptile" id="' . $shortcode_id . '">';
+        foreach ($shortcode_images  as $shortcode_image) {
+			$yImage = explode('|',$shortcode_image);
+			$final = array();
+			array_walk($yImage, function($val,$key) use(&$final){
+				list($key, $value) = explode('=', $val);
+				$final[$key] = $value;
+			});
+			
+			if (array_key_exists("image",$final))
+			{
+				$image_path = str_ireplace(get_site_url(), '', $image);
+				$image_path = weptile_get_wp_config_path() . $image_path;
+
+				$image_file_name = substr($image_path, strripos($image_path, '/') + 1);
+				$suffix = 'resized-' . $slider_options['width'] . 'x' . $slider_options['height'];
+
+
+				$image_url = $shortcode_image;
+				echo ( !empty( $final['link']) ? '<a href="'. $final['link'].'" target="'.$final['target'].'" rel="'.$final['rel'].'" >' : '' );
+				echo '<img src="' . $final['image'] . '" alt="'. (!empty($instance['slider-image-alts'][$i]) ? $instance['slider-image-alts'][$i] : '') .'" title="'. ( !empty($final['caption']) ? $final['caption'] : '' ) .'" />';
+				echo ( !empty($instance['slider-image-links'][$i]) ? '</a>' : '' );
+			}
+		}
+        echo
+            '</div>'.
+            '</div>';
+        echo '<script>
+			jQuery(window).load(function() {
+				jQuery("#' . $shortcode_id . '").nivoSliderWeptile({
+					animSpeed:' . (empty($slider_options['speed']) ? 650 : $slider_options['speed'] ) . ',
+					pauseTime:' . (empty($slider_options['duration']) ? 5000 : $slider_options['duration'] ) . ',
+					effect:"' . (empty($slider_options['effect']) ? 'fade' : $slider_options['effect'] ) . '",
+					prevText: "' . __('Previous', $textdomain_shortcode) . '",
+					nextText: "' . __('Next', $textdomain_shortcode) . '",
+					directionNav: ' . ($slider_options['directional-nav'] ? 'true' : 'false') . ',
+					controlNav: ' . ($slider_options['button-nav'] ? 'true' : 'false') . ',
+					pauseOnHover: ' . ($slider_options['pause-hover'] ? 'true' : 'false') . ',
+					randomStart: ' . ($slider_options['start-random'] ? 'true' : 'false') . ',
+					slices: ' . (empty($slider_options['slices']) ? '15' : $slider_options['slices']) . ',
+					boxCols:' . (empty($slider_options['box-columns']) ? '8' : $slider_options['box-columns']) . ',
+					boxRows:' . (empty($slider_options['box-rows']) ? '4' : $slider_options['box-rows']) . ',
+					prevText: "' . (empty($slider_options['prev-text']) ? 'Previous' : $slider_options['prev-text']) . '",
+					nextText: "' . (empty($slider_options['next-text']) ? 'Next' : $slider_options['next-text']) . '"
+				});
+			});
+			</script>';
+
+        // Else
+    } else {
+        echo $error_message;
+    }
+}
+add_shortcode( 'weptile-image-slider', 'weptile_image_slider_shortcode_advanced' );
+
+
+
+//we need to detect WordPress version via our hepler function
+function lenslider_get_wp_version() {
+   global $wp_version;
+   return $wp_version;
+}
+
+//add media WP scripts
+function lenslider_admin_scripts_init() {
+      //double check for WordPress version and function exists
+      if(function_exists('wp_enqueue_media') && version_compare(lenslider_get_wp_version(), '3.5', '>=')) {
+         //call for new media manager
+         wp_enqueue_media();
+      }
+      //old WP < 3.5
+      else {
+         wp_enqueue_script('media-upload');
+         wp_enqueue_script('thickbox');
+         wp_enqueue_style('thickbox');
+      }
+
+
+      //maybe..
+      wp_enqueue_style('media');
+}
+add_action('admin_enqueue_scripts', 'lenslider_admin_scripts_init');

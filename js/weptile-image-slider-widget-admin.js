@@ -17,31 +17,80 @@ jQuery(function () {
 			}
 		}
 	});
-	var img_url_text_container_id = '';
+	
+	
+		var img_url_text_container_id = '';
 	var submit_button_id = '';
-	jQuery(document).on('click', '[id$="slider-images-upload-button"]', function () {
-		window.weptile_backup_send_to_editor = window.send_to_editor;
-		window.send_to_editor = window.weptile_send_to_editor;
-		submit_button_id = jQuery(this).attr('id');
+   //uploading files variable
+   var custom_file_frame;
+   jQuery(document).on('click', '[id$="slider-images-upload-button"]', function(event) {
+      event.preventDefault();
+	  	submit_button_id = jQuery(this).attr('id');
 		img_url_text_container_id = jQuery(this).prev().attr('id');
-		tb_show('', 'media-upload.php?TB_iframe=true&');
-
-		var iframe = jQuery('#TB_iframeContent');
-		iframe.css('display', 'none');
-		iframe.load(function () {
-			var iframeDoc = iframe[0].contentWindow.document;
-			var iframeJQuery = iframe[0].contentWindow.jQuery;
-			if (iframeJQuery != undefined)
-				iframeJQuery('#tab-type_url').remove();
-
-			iframe.css('display', '');
-			apply_insert_button_filter(iframeJQuery);
-		});
-
-		return false;
-	});
-
-
+		
+      //If the frame already exists, reopen it
+      if (typeof(custom_file_frame)!=="undefined") {
+         custom_file_frame.close();
+      }
+ 
+      //Create WP media frame.
+      custom_file_frame = wp.media.frames.customHeader = wp.media({
+         //Title of media manager frame
+         title: "Weptile Image Slider Widget",
+         library: {
+            type: 'image'
+         },
+         button: {
+            //Button text
+            text: "Add Image to Slider"
+         },
+         //Do not allow multiple files, if you want multiple, set true
+         multiple: true
+      });
+ 
+      //callback for selected image
+      custom_file_frame.on('select', function() {
+         var selection = custom_file_frame.state().get('selection');
+		   selection.map(function(attachment) {
+			  attachment = attachment.toJSON();
+			  // Do something else with attachment object
+			  jQuery('#' + img_url_text_container_id).val(attachment.url).prop('disabled', false);
+		clearTimeout(timeout);
+		jQuery('#' + submit_button_id).parent().parent().find('input[name=savewidget]').click();
+		window.send_to_editor = window.weptile_backup_send_to_editor;
+			  
+			  
+			  
+			});
+         //do something with attachment variable, for example attachment.filename
+         //Object:
+         //attachment.alt - image alt
+         //attachment.author - author id
+         //attachment.caption
+         //attachment.dateFormatted - date of image uploaded
+         //attachment.description
+         //attachment.editLink - edit link of media
+         //attachment.filename
+         //attachment.height
+         //attachment.icon - don't know WTF?))
+         //attachment.id - id of attachment
+         //attachment.link - public link of attachment, for example ""http://site.com/?attachment_id=115""
+         //attachment.menuOrder
+         //attachment.mime - mime type, for example image/jpeg"
+         //attachment.name - name of attachment file, for example "my-image"
+         //attachment.status - usual is "inherit"
+         //attachment.subtype - "jpeg" if is "jpg"
+         //attachment.title
+         //attachment.type - "image"
+         //attachment.uploadedTo
+         //attachment.url - http url of image, for example "http://site.com/wp-content/uploads/2012/12/my-image.jpg"
+         //attachment.width
+      });
+ 
+      //Open modal
+      custom_file_frame.open();
+   });
+	/*
 	window.weptile_send_to_editor = function (html) {
 		var imgurl = jQuery('img', html).attr('src');
 		if (imgurl == undefined)
@@ -49,11 +98,10 @@ jQuery(function () {
 
 		jQuery('#' + img_url_text_container_id).val(imgurl).prop('disabled', false);
 		clearTimeout(timeout);
-		tb_remove();
 		jQuery('#' + submit_button_id).parent().parent().find('input[name=savewidget]').click();
 		window.send_to_editor = window.weptile_backup_send_to_editor;
 	};
-
+*/
 	jQuery(document).on('click', '.weptile-image-slider-images-delete-button', function () {
 		var parent_li = jQuery(this).parent();
 
@@ -72,11 +120,9 @@ jQuery(function () {
 
 		if (that.parent().find('.weptile-image-slider-images-details-table').is(':visible')) {
 			that.parent().find('.weptile-image-slider-images-details-table').fadeOut(300);
-			that.parent().animate({height: 30, maxHeight: 30  }, 360);
 		} else {
-			that.parent().animate({height: 210, maxHeight: 210}, 360, function () {
 				that.parent().find('.weptile-image-slider-images-details-table').fadeIn(300);
-			});
+		
 		}
 	});
 
