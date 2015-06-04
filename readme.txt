@@ -23,7 +23,7 @@ You can use multiple sliders on multiple sidebars on the same page.
 You can use the shortcode support to add it to your posts or pages.
 
 Example shortcode:
-[weptile-image-slider items="image=http://url-to-image-1.jpg|link=http://link-of-image-1|target=_blank|caption=Test Caption|alt=Test Alternate Text,image=http://url-to-image-2.jpg|link=http://link-of-image-2|target=_blank|caption=Test Caption|alt=Test Alternate Text" width="700" height="100" responsive="0" effect="boxRandom" directionalnav="0" buttonnav="1" pausehover="1" start-random="1" slices="30" center="0"]
+[weptile-image-slider items="image=http://url-to-image-1.jpg|link=http://link-of-image-1|target=_blank|caption=Test Caption|alt=Test Alternate Text,image=http://url-to-image-2.jpg|link=http://link-of-image-2|target=_blank|caption=Test Caption|alt=Test Alternate Text" width="700" height="100" responsive="0" effect="boxRandom" directionalnav="0" buttonnav="1" pausehover="1" startrandom="1" slices="30" center="0"]
 
 Shortcode Variables:
 items : this is a 2 level shortcode variable which includes the images to rotate in slider, their target url when they're clicked (optional), caption and alt text.
@@ -34,7 +34,7 @@ theme : default,light,dark,bar
 directional-nav : 0 or 1 (default: 0)
 button-nav : 0 or 1 (default: 0)
 pause-hover : 0 or 1 (default: 0)
-start-random : 0 or 1 (default: 0)
+startrandom : 0 or 1 (default: 0)
 slices : any integer value (default is 15)
 box-columns : any integer value (default is 8)
 box-rows (sayi degeri olacak, default:4)
