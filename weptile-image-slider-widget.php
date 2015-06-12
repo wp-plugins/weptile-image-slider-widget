@@ -3,7 +3,7 @@
 Plugin Name: Weptile Image Slider Widget
 Plugin URI: http://weptile.com
 Description: Easy, lightweight, responsive sidebar image slider widget. Utilizes the Nivo slider script. Includes lots and lots of customization options and all done within the widget. Allows multiple widgets on one screen and can be used in any sidebar. (Please visit <a href="http://weptile.com" target="_blank" title="wordpress development">Weptile.com</a> for more. You can also <a href="http://weptile.com" target="_blank" title="wordpress development">HIRE WEPTILE</a> for all your Wordpress projects and/or for WP support.)
-Version: 1.2.0
+Version: 1.2.1
 Author: Weptile
 Author URI: http://weptile.com
 License: GPL v3
@@ -55,15 +55,15 @@ class Weptile_Image_Slider_Widget extends WP_Widget {
 				'directional-nav' => esc_attr($instance['slider-directional-nav']),
 				'button-nav' => esc_attr($instance['slider-button-nav']),
 				'pause-hover' => esc_attr($instance['slider-pause-hover']),
-				'start-random' => esc_attr($instance['slider-start-random']),
+				'start-random' => esc_attr(@$instance['slider-start-random']),
 				'slices' => esc_attr($instance['slider-slices']),
 				'box-columns' => esc_attr($instance['slider-box-columns']),
 				'box-rows' => esc_attr($instance['slider-box-rows']),
 				'prev-text' => esc_attr($instance['slider-prev-text']),
 				'next-text' => esc_attr($instance['slider-next-text']),
-				'responsive' => esc_attr($instance['slider-responsive']),
+				'responsive' => esc_attr(@$instance['slider-responsive']),
 				'centered' => esc_attr($instance['slider-centered']),
-				'shuffle' => esc_attr($instance['slider-shuffle'])
+				'shuffle' => esc_attr(@$instance['slider-shuffle'])
 
 			);
 		}
@@ -388,15 +388,15 @@ class Weptile_Image_Slider_Widget extends WP_Widget {
 				'directional-nav' => esc_attr($instance['slider-directional-nav']),
 				'button-nav' => esc_attr($instance['slider-button-nav']),
 				'pause-hover' => esc_attr($instance['slider-pause-hover']),
-				'start-random' => esc_attr($instance['slider-start-random']),
+				'start-random' => esc_attr(@$instance['slider-start-random']),
 				'slices' => esc_attr($instance['slider-slices']),
 				'box-columns' => esc_attr($instance['slider-box-columns']),
 				'box-rows' => esc_attr($instance['slider-box-rows']),
 				'prev-text' => esc_attr($instance['slider-prev-text']),
 				'next-text' => esc_attr($instance['slider-next-text']),
-				'responsive' => esc_attr($instance['slider-responsive']),
-				'centered' => esc_attr($instance['slider-centered']),
-				'shuffle' => esc_attr($instance['slider-shuffle']),
+				'responsive' => esc_attr(@$instance['slider-responsive']),
+				'centered' => esc_attr(@$instance['slider-centered']),
+				'shuffle' => esc_attr(@$instance['slider-shuffle']),
 			);
 
 			if (empty($slider_options['theme'])) {
@@ -774,7 +774,7 @@ function weptile_image_slider_shortcode_advanced( $atts, $content = null ) {
         'effect' => '',
         'speed' => '',
         'duration' => '',
-        'slice' => '',
+        'slices' => '',
         'boxcolumns' => '',
         'boxrows' => '',
         'prevtext' => '',
@@ -839,11 +839,11 @@ function weptile_image_slider_shortcode_advanced( $atts, $content = null ) {
 
         wp_enqueue_style('weptile-image-slider-widget-nivo-slider-theme-' . $slider_options['theme']);
 
-        if ($slider_options['responsive'] != '1') {
-			if($slider_options['center'] == 1) {
+        if (@$slider_options['responsive'] != '1') {
+			if(@$slider_options['center'] == 1) {
 				$center_text = 'margin:0 auto';
 			}
-            echo '<style type="text/css" >.slider-wrapper.' . $shortcode_id . '{ width:' . $slider_options['width'] . 'px;'.$center_text.' /*height:' . $slider_options['height'] . 'px;*/ }</style>';
+            echo '<style type="text/css" >.slider-wrapper.' . $shortcode_id . '{ width:' . $slider_options['width'] . 'px;'.@$center_text.' /*height:' . $slider_options['height'] . 'px;*/ }</style>';
 		}
 		
 		
@@ -853,24 +853,22 @@ function weptile_image_slider_shortcode_advanced( $atts, $content = null ) {
         foreach ($shortcode_images  as $shortcode_image) {
 			$yImage = explode('|',$shortcode_image);
 			$final = array();
-			array_walk($yImage, function($val,$key) use(&$final){
+			/*array_walk($yImage, function($val,$key) use(&$final){
 				list($key, $value) = explode('=', $val);
 				$final[$key] = $value;
-			});
+			});*/
+			foreach ($yImage as $cLine) {
+				$item = explode('=',$cLine);
+				$final[$item[0]] = $item[1];
+			}
+			
 			
 			if (array_key_exists("image",$final))
 			{
-				$image_path = str_ireplace(get_site_url(), '', $image);
-				$image_path = weptile_get_wp_config_path() . $image_path;
-
-				$image_file_name = substr($image_path, strripos($image_path, '/') + 1);
-				$suffix = 'resized-' . $slider_options['width'] . 'x' . $slider_options['height'];
-
-
-				$image_url = $shortcode_image;
-				echo ( !empty( $final['link']) ? '<a href="'. $final['link'].'" target="'.$final['target'].'" rel="'.$final['rel'].'" >' : '' );
-				echo '<img src="' . $final['image'] . '" alt="'. (!empty($instance['slider-image-alts'][$i]) ? $instance['slider-image-alts'][$i] : '') .'" title="'. ( !empty($final['caption']) ? $final['caption'] : '' ) .'" />';
-				echo ( !empty($instance['slider-image-links'][$i]) ? '</a>' : '' );
+				
+				echo ( !empty( $final['link']) ? '<a href="'. $final['link'].'" target="'.$final['target'].'" rel="'.@$final['rel'].'" >' : '' );
+				echo '<img src="' . $final['image'] . '" alt="'. (!empty($final['alt']) ? $final['alt'] : '') .'" title="'. ( !empty($final['caption']) ? $final['caption'] : '' ) .'" />';
+				echo ( !empty($final['link']) ? '</a>' : '' );
 			}
 		}
         echo

@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: image, slider, widget, slideshow, nivo, sidebar, rotator, responsive
 Requires at least: 3.3
 Tested up to: 4.2.2
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -23,7 +23,7 @@ You can use multiple sliders on multiple sidebars on the same page.
 You can use the shortcode support to add it to your posts or pages.
 
 Example shortcode:
-[weptile-image-slider items="image=http://url-to-image-1.jpg|link=http://link-of-image-1|target=_blank|caption=Test Caption|alt=Test Alternate Text,image=http://url-to-image-2.jpg|link=http://link-of-image-2|target=_blank|caption=Test Caption|alt=Test Alternate Text" width="700" height="100" responsive="0" effect="boxRandom" directionalnav="0" buttonnav="1" pausehover="1" startrandom="1" slices="30" center="0"]
+[weptile-image-slider items="image=http://url-to-image-1.jpg|link=http://link-of-image-1|target=_blank|caption=Test Caption|alt=Test Alternate Text,image=http://url-to-image-2.jpg|link=http://link-of-image-2|target=_blank|caption=Test Caption|alt=Test Alternate Text" width="700" height="100" responsive="0" effect="boxRandom" directionalnav="0" buttonnav="1" pausehover="1" start-random="1" slices="30" center="0"]
 
 Shortcode Variables:
 items : this is a 2 level shortcode variable which includes the images to rotate in slider, their target url when they're clicked (optional), caption and alt text.
@@ -34,7 +34,7 @@ theme : default,light,dark,bar
 directional-nav : 0 or 1 (default: 0)
 button-nav : 0 or 1 (default: 0)
 pause-hover : 0 or 1 (default: 0)
-startrandom : 0 or 1 (default: 0)
+start-random : 0 or 1 (default: 0)
 slices : any integer value (default is 15)
 box-columns : any integer value (default is 8)
 box-rows (sayi degeri olacak, default:4)
@@ -111,6 +111,17 @@ Else, you might want to check your folder permissions for this plugins' cache fo
 
 
 == Changelog ==
+
+= 1.2.1 =
+
+* Bug fix: Fixed a bug where admin panel gave an error on servers running with PHP version older than 5.3.
+
+= 1.2.0 =
+
+* Improved UI: Widgete thumbs larger, edit buttons working better and user friendly.
+* Cache folder moved: Moved the plugin cache folder under uploads to prevent broken widgets on each plugin update in the future. 
+* Shortcode changed: Created a new shortcode to allow further options to be used on pages and posts. Old shortcode is still working to be backwards compatible.
+* Title, alt and target link variables added to the shortcode support.
 
 = 1.1.4 =
 
