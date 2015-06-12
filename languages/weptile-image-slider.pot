@@ -1,0 +1,299 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Weptile Image Slider Widget\n"
+"POT-Creation-Date: 2014-09-12 16:01+0200\n"
+"PO-Revision-Date: 2014-09-12 16:36+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.7\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: weptile-image-slider-widget.php:38
+msgid ""
+"A widgetized image slider by Weptile. Please visit Weptile.com for more."
+msgstr ""
+
+#: weptile-image-slider-widget.php:69
+msgid "Title"
+msgstr ""
+
+#: weptile-image-slider-widget.php:70
+msgid "Options"
+msgstr ""
+
+#: weptile-image-slider-widget.php:74
+msgid "Visual"
+msgstr ""
+
+#: weptile-image-slider-widget.php:77
+msgid "Width"
+msgstr ""
+
+#: weptile-image-slider-widget.php:81
+msgid "Height"
+msgstr ""
+
+#: weptile-image-slider-widget.php:85
+msgid "Responsive"
+msgstr ""
+
+#: weptile-image-slider-widget.php:88
+msgid ""
+"This feature makes the slider fits its container in both conditions; if the "
+"container smaller/bigger than images or the container resizes. Otherwise "
+"slider will render in the dimensions you set above."
+msgstr ""
+
+#: weptile-image-slider-widget.php:90
+msgid "Slider Theme"
+msgstr ""
+
+#: weptile-image-slider-widget.php:93 weptile-image-slider-widget.php:313
+msgid "Default Theme"
+msgstr ""
+
+#: weptile-image-slider-widget.php:94 weptile-image-slider-widget.php:313
+msgid "Light Theme"
+msgstr ""
+
+#: weptile-image-slider-widget.php:95 weptile-image-slider-widget.php:313
+msgid "Dark Theme"
+msgstr ""
+
+#: weptile-image-slider-widget.php:96 weptile-image-slider-widget.php:313
+msgid "Bar Theme"
+msgstr ""
+
+#: weptile-image-slider-widget.php:97 weptile-image-slider-widget.php:312
+#: weptile-image-slider-widget.php:313
+msgid "Custom Theme..."
+msgstr ""
+
+#: weptile-image-slider-widget.php:108
+msgid "Cancel custom theme name input"
+msgstr ""
+
+#: weptile-image-slider-widget.php:115
+msgid "Directional Navigation"
+msgstr ""
+
+#: weptile-image-slider-widget.php:119
+msgid "Button Navigation"
+msgstr ""
+
+#: weptile-image-slider-widget.php:123
+msgid "Pause on mouse hover"
+msgstr ""
+
+#: weptile-image-slider-widget.php:127
+msgid "Start random"
+msgstr ""
+
+#: weptile-image-slider-widget.php:131
+msgid "Previous Text"
+msgstr ""
+
+#: weptile-image-slider-widget.php:132 weptile-image-slider-widget.php:433
+#: weptile-image-slider-widget.php:712
+msgid "Previous"
+msgstr ""
+
+#: weptile-image-slider-widget.php:135
+msgid "Next Text"
+msgstr ""
+
+#: weptile-image-slider-widget.php:136 weptile-image-slider-widget.php:434
+#: weptile-image-slider-widget.php:713
+msgid "Next"
+msgstr ""
+
+#: weptile-image-slider-widget.php:142
+msgid "Transitions"
+msgstr ""
+
+#: weptile-image-slider-widget.php:145
+msgid "Effects"
+msgstr ""
+
+#: weptile-image-slider-widget.php:149
+msgid "Fade"
+msgstr ""
+
+#: weptile-image-slider-widget.php:150
+msgid "Fold"
+msgstr ""
+
+#: weptile-image-slider-widget.php:151
+msgid "Slide In Left"
+msgstr ""
+
+#: weptile-image-slider-widget.php:152
+msgid "Slide In Right"
+msgstr ""
+
+#: weptile-image-slider-widget.php:153
+msgid "Random"
+msgstr ""
+
+#: weptile-image-slider-widget.php:154
+msgid "Slice Down"
+msgstr ""
+
+#: weptile-image-slider-widget.php:155
+msgid "Slice Down Left"
+msgstr ""
+
+#: weptile-image-slider-widget.php:156
+msgid "Slice Up"
+msgstr ""
+
+#: weptile-image-slider-widget.php:157
+msgid "Slice Up Left"
+msgstr ""
+
+#: weptile-image-slider-widget.php:158
+msgid "Slice Up and Down"
+msgstr ""
+
+#: weptile-image-slider-widget.php:159
+msgid "Slice Up, Down and Left"
+msgstr ""
+
+#: weptile-image-slider-widget.php:160
+msgid "Random Boxes"
+msgstr ""
+
+#: weptile-image-slider-widget.php:161
+msgid "Raining Boxes"
+msgstr ""
+
+#: weptile-image-slider-widget.php:162
+msgid "Raining Boxes Reverse"
+msgstr ""
+
+#: weptile-image-slider-widget.php:163
+msgid "Growing Boxes Raining"
+msgstr ""
+
+#: weptile-image-slider-widget.php:164
+msgid "Growing Boxes Raining Reverse"
+msgstr ""
+
+#: weptile-image-slider-widget.php:173
+msgid "Speed"
+msgstr ""
+
+#: weptile-image-slider-widget.php:177
+msgid "Duration"
+msgstr ""
+
+#: weptile-image-slider-widget.php:181
+msgid "Slices"
+msgstr ""
+
+#: weptile-image-slider-widget.php:185
+msgid "Box Columns"
+msgstr ""
+
+#: weptile-image-slider-widget.php:189
+msgid "Box Rows"
+msgstr ""
+
+#: weptile-image-slider-widget.php:194
+msgid "Images"
+msgstr ""
+
+#: weptile-image-slider-widget.php:210
+msgid "Remove Image"
+msgstr ""
+
+#: weptile-image-slider-widget.php:214
+msgid "Link : http://"
+msgstr ""
+
+#: weptile-image-slider-widget.php:224
+msgid "In a new window / tab"
+msgstr ""
+
+#: weptile-image-slider-widget.php:225
+msgid "In the same page"
+msgstr ""
+
+#: weptile-image-slider-widget.php:226 weptile-image-slider-widget.php:307
+msgid "In the container of the frame"
+msgstr ""
+
+#: weptile-image-slider-widget.php:227
+msgid "In the same window of the frame's container"
+msgstr ""
+
+#: weptile-image-slider-widget.php:228 weptile-image-slider-widget.php:307
+msgid "Custom frame name..."
+msgstr ""
+
+#: weptile-image-slider-widget.php:239 weptile-image-slider-widget.php:308
+msgid "Cancel custom frame name input"
+msgstr ""
+
+#: weptile-image-slider-widget.php:263 weptile-image-slider-widget.php:310
+msgid "Custom rel value..."
+msgstr ""
+
+#: weptile-image-slider-widget.php:274 weptile-image-slider-widget.php:311
+msgid "Cancel custom rel value input"
+msgstr ""
+
+#: weptile-image-slider-widget.php:281
+msgid "Caption :"
+msgstr ""
+
+#: weptile-image-slider-widget.php:287
+msgid "Alt :"
+msgstr ""
+
+#: weptile-image-slider-widget.php:293
+msgid "Details"
+msgstr ""
+
+#: weptile-image-slider-widget.php:302
+msgid ""
+"You can upload new images or pick one of your images from your gallery and "
+"drag them to reorder."
+msgstr ""
+
+#: weptile-image-slider-widget.php:305
+msgid "Upload or Pick Image"
+msgstr ""
+
+#: weptile-image-slider-widget.php:307
+msgid "New page/tab"
+msgstr ""
+
+#: weptile-image-slider-widget.php:307
+msgid "Same page"
+msgstr ""
+
+#: weptile-image-slider-widget.php:307
+msgid "Same window of the frame\\'s container"
+msgstr ""
+
+#: weptile-image-slider-widget.php:327 weptile-image-slider-widget.php:330
+msgid "Send Image to Weptile Slider Widget"
+msgstr ""
+
+#: weptile-image-slider-widget.php:360 weptile-image-slider-widget.php:639
+msgid "No image found for slider"
+msgstr ""
+
+#: weptile-image-slider-widget.php:365 weptile-image-slider-widget.php:644
+msgid "Slider height and/or width are not valid or smaller than 50px"
+msgstr ""

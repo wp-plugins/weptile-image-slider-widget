@@ -1,0 +1,74 @@
+ @import url('http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css');
+.weptile-image-slider-images-order li{
+	border:1px solid #ccc;
+	height:350px;
+	max-height:100%;
+	width: 100%;
+	margin-bottom:12px;
+	position:relative;
+	/*overflow:hidden;*/
+	cursor:move;
+	cursor:ns-resize; /* show ns resize if its compatible with the browse */
+}
+
+.weptile-image-slider-images-order li img{
+	min-height:100%;
+	max-height:100%;
+	min-width:100%;
+	max-width:100%;
+}
+
+.weptile-image-slider-images-order li .weptile-image-slider-images-delete-button{
+  /* display: none; */
+  position: absolute;
+  top: 1px;
+  right: 0;
+}
+
+.weptile-image-slider-images-order li:hover .weptile-image-slider-images-delete-button, .weptile-image-slider-images-order li.weptile-image-slider-images-will-be-deleted .weptile-image-slider-images-delete-button,
+.weptile-image-slider-images-order li:hover .weptile-image-slider-images-details-button, .weptile-image-slider-images-order li.weptile-image-slider-images-will-be-deleted .weptile-image-slider-images-details-button{
+	display:block;
+	z-index:100;
+}
+
+.weptile-image-slider-images-details-table{
+	display:none;
+	position:absolute;
+	top:0px;
+	left:0;
+	background:rgba(226, 226, 226, .4);
+	padding:10px;
+	height:100%;
+	 text-shadow: 0px 0px 1px #fff;
+}
+
+.weptile-image-slider-images-details-table td {
+	  background: rgba(255,255,255,.7) !important;
+}
+
+.weptile-image-slider-images-order li .weptile-image-slider-images-details-button{
+  /* display: none; */
+  position: absolute;
+  /* bottom: -12px; */
+  right: 35px;
+  top: 1px;
+}
+
+
+.weptile-image-slider-images-order li.weptile-image-slider-images-will-be-deleted{
+	opacity:0.5;
+}
+
+.weptile-image-slider-images-order li.weptile-image-slider-images-order-item-placeholder{
+	border:1px solid #e3e3e3;
+	background:#e8e8e8;
+	height:30px;
+}
+
+.weptile-tr-with-description + tr{ display:none; font-size:11px; text-align:justify; }
+
+.weptile-tr-with-description:hover + tr, .weptile-tr-with-description + tr:hover{ display:table-row; }
+.weptile-image-slider-image-link-target-input, .weptile-image-slider-image-link-rel-input{ width:78px;}
+.weptile-image-slider-image-link-target-select, .weptile-image-slider-image-link-rel-select {width:100px;}
+.weptile-image-slider-theme-select {width: 73px;}
+.weptile-image-slider-custom-theme-input {width: 40px;}

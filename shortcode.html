@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <style>
+        body{
+            max-width:100%;
+        }
+    </style>
+</head>
+<body>
+<form>
+    <table cellspacing="5" cellpadding="5">
+        <tr>
+            <td>
+                Slider Images URLs (separated by comma)
+            </td>
+            <td>
+                <textarea name="imgs" id="imgs"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Width (px)
+            </td>
+            <td>
+                <input type="text" name="width" id="width">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Height (px)
+            </td>
+            <td>
+                <input type="text" name="height" id="height">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Slider Theme
+            </td>
+            <td>
+                <select name="slidertheme" id="slidertheme">
+                    <option value="default">Default Theme</option>
+                    <option value="light">Light Theme</option>
+                    <option value="dark">Dark Theme</option>
+                    <option value="bar">Bar Theme</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Responsive
+            </td>
+            <td>
+                <input type="checkbox" name="responsive" id="responsive">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Directional Navigation
+            </td>
+            <td>
+                <input type="checkbox" name="directionalnav" id="directionalnav">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Button Navigation
+            </td>
+            <td>
+                <input type="checkbox" name="buttonnav" id="buttonnav">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Pause on mouse hover
+            </td>
+            <td>
+                <input type="checkbox" name="pausehover" id="pausehover">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Start Random
+            </td>
+            <td>
+                <input type="checkbox" name="startrandom" id="startrandom">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Previous Text
+            </td>
+            <td>
+                <input type="text" name="prevtext" id="prevtext">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Next Text
+            </td>
+            <td>
+                <input type="text" name="nexttext" id="nexttext">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Effect
+            </td>
+            <td>
+                <select name="effect" id="effect">
+                    <option value="fade">Fade</option>
+                    <option value="fold">Fold</option>
+                    <option value="slideInLeft">Slide In Left</option>
+                    <option value="slideInRight">Slide In Right</option>
+                    <option value="random">Random</option>
+                    <option value="sliceDown">Slice Down</option>
+                    <option value="sliceDownLeft">Slice Down Left</option>
+                    <option value="sliceUp">Slice Up</option>
+                    <option value="sliceUpLeft">Slice Up Left</option>
+                    <option value="sliceUpDown">Slice Up and Down</option>
+                    <option value="sliceUpDownLeft">Slice Up, Down and Left</option>
+                    <option value="boxRandom">Random Boxes</option>
+                    <option value="boxRain">Raining Boxes</option>
+                    <option value="boxRainReverse">Raining Boxes Reverse</option>
+                    <option value="boxRainGrow">Growing Boxes Raining</option>
+                    <option value="boxRainGrowReverse">Growing Boxes Raining Reverse</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Speed (ms)
+            </td>
+            <td>
+                <input type="text" name="speed" id="speed">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Duration (ms)
+            </td>
+            <td>
+                <input type="text" name="duration" id="duration">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Slice
+            </td>
+            <td>
+                <input type="text" name="slice" id="slice">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Box Columns
+            </td>
+            <td>
+                <input type="text" name="boxcolumns" id="boxcolumns">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Box Rows
+            </td>
+            <td>
+                <input type="text" name="boxrows" id="boxrows">
+            </td>
+        </tr>
+        <tr>
+            <td></td><td><input type="submit" id="weptile-image-shortcode-submit" value="ADD"></td>
+        </tr>
+    </table>
+</form>
+</body>
+<script>
+    document.getElementById("weptile-image-shortcode-submit").onclick = function(){
+        var imgs = document.getElementById( 'imgs' ).value;
+        var width = document.getElementById( 'width' ).value;
+        var height = document.getElementById( 'height' ).value;
+        var slidertheme = document.getElementById( 'slidertheme' ).value;
+        var prevtext = document.getElementById( 'prevtext' ).value;
+        var nexttext = document.getElementById( 'nexttext' ).value;
+        var effect = document.getElementById( 'effect' ).value;
+        var speed = document.getElementById( 'speed' ).value;
+        var duration = document.getElementById( 'duration' ).value;
+        var slice = document.getElementById( 'slice' ).value;
+        var boxcolumns = document.getElementById( 'boxcolumns' ).value;
+        var boxrows = document.getElementById( 'boxrows' ).value;
+        if(document.getElementById( 'boxcolumns').value==false){
+            var gelenresponsive = 0;
+        }else{
+            var gelenresponsive = 1;
+        }
+        if(document.getElementById( 'directionalnav' ).value==false){
+            var gelendirectionalnav = 0;
+        }else{
+            var gelendirectionalnav = 1;
+        }
+        if(document.getElementById( 'buttonnav').value==false){
+            var gelenbuttonnav = 0;
+        }else{
+            var gelenbuttonnav = 1;
+        }
+        if(document.getElementById( 'pausehover').value==false){
+            var gelenpausehover = 0;
+        }else{
+            var gelenpausehover = 1;
+        }
+        if(document.getElementById( 'valuestartrandom')==false){
+            var gelenstartrandom = 0;
+        }else{
+            var gelenstartrandom = 1;
+        }
+        var shortcodeweptile = '[weptile-slider imgs="' + imgs + '" width="' + width + '" height="' + height + '" responsive="' + gelenresponsive + '" theme="' + slidertheme + '" directional-nav="' + gelendirectionalnav + '" buttonnav="' + gelenbuttonnav + '" pausehover="' + gelenpausehover + '" startrandom="' + gelenstartrandom + '" prevtext="' + prevtext + '" nexttext="' + nexttext + '" effect="' + effect + '" speed="' + speed + '" duration="' + duration + '" slice="' + slice + '" box-columns="' + boxcolumns + '" box-rows="' + boxrows + '"]';
+        window.parent.tinyMCE.activeEditor.execCommand( 'mceInsertContent', 0, shortcodeweptile );
+        top.tinymce.activeEditor.windowManager.close();
+    };
+</script>
+</html>
