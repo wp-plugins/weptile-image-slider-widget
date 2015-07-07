@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: image, slider, widget, slideshow, nivo, sidebar, rotator, responsive
 Requires at least: 3.3
 Tested up to: 4.2.2
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,10 @@ effect : (fade, fold, slideInLeft, slideInRight, random, sliceDown, sliceDownLef
 center: 0 or 1 (default: 0)
 
 Change Log:
+1.2.2
+Fixed the bug where captions were mixed up on shuffle.
+1.2.1
+Corrected several language/text mistakes.
 1.2.0
 Moved the cache folder under uploads folder to prevent missing images after plugin update.
 (With this update you need to re-save the widget settings to re-create the cache folder one last time. From this point on, it's all safe for future updates :) )
